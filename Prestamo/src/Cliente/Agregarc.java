@@ -5,17 +5,13 @@
  */
 package Cliente;
 
-import Base_datos.Conectar;
-import static Login.Login.fecha;
-import Menu.Menu_ADM;
+import Base_datos.Conectar_Oracle;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -36,11 +32,9 @@ public class Agregarc extends javax.swing.JFrame {
         int a1=0;
         
         
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"Codigo del Garante", "Nombre", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion", "Telefono", "Tipo"});
-        ResultSet rs1 = cc.Vertodo("select * from Clientes");
+        
         try{
-            
+            ResultSet rs1 = cc.Vertodo("select * from Clientes");
             while(rs1.next()){
             a1 = rs1.getInt("Id_cliente");
                 
@@ -53,7 +47,7 @@ public class Agregarc extends javax.swing.JFrame {
         } catch(Exception e){
             
         } finally{
-            cc.cerrar();
+            cc.close();
         }
         
         jblUsu1.setText(String.valueOf(a));
@@ -78,14 +72,13 @@ public class Agregarc extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jtxtNombre = new javax.swing.JTextField();
         jtxtApellido = new javax.swing.JTextField();
         jtxtCedula = new javax.swing.JTextField();
-        jtxtDireccion = new javax.swing.JTextField();
+        jtxtCalle = new javax.swing.JTextField();
         jtxtTelefono = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -94,7 +87,14 @@ public class Agregarc extends javax.swing.JFrame {
         jCbSexo = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
         jtxtEmail = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jtxtSector = new javax.swing.JTextField();
+        jtxtCiudad = new javax.swing.JTextField();
+        jtxtNcasa = new javax.swing.JTextField();
+        jtxtCelular = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,7 +105,7 @@ public class Agregarc extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel1.setText("Agregar Clientes");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setText("Nombre:");
@@ -113,38 +113,34 @@ public class Agregarc extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel3.setText("Apellido:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 150, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel4.setText("Cedula:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 206, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel5.setText("Fecha de nacimiento:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 251, -1, -1));
-
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel6.setText("Sexo:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 304, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 40, -1));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel7.setText("Direccion:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 345, -1, -1));
+        jLabel7.setText("Calle:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 290, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel8.setText("Telefono:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 400, -1, -1));
-        jPanel1.add(jtxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 112, 180, -1));
-        jPanel1.add(jtxtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 153, 180, -1));
-        jPanel1.add(jtxtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 209, 180, -1));
-        jPanel1.add(jtxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 348, 180, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 350, -1, -1));
+        jPanel1.add(jtxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 180, 40));
+        jPanel1.add(jtxtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 143, 180, 40));
+        jPanel1.add(jtxtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 199, 180, 40));
+        jPanel1.add(jtxtCalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 280, 130, 40));
 
         jtxtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtTelefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(jtxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 403, 180, -1));
+        jPanel1.add(jtxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 340, 130, 40));
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Guardar.png"))); // NOI18N
@@ -154,7 +150,7 @@ public class Agregarc extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 130, 50));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 430, 130, 50));
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
@@ -164,26 +160,45 @@ public class Agregarc extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 520, 120, 50));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 430, 120, 50));
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel9.setText("N. Registro");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, -1));
 
         jblUsu1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanel1.add(jblUsu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 62, 42));
+        jPanel1.add(jblUsu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, 62, 42));
 
         jCbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jCbSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 180, 30));
+        jPanel1.add(jCbSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, 130, 30));
 
         jLabel23.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel23.setText("Correo Electronico:");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, -1, -1));
-        jPanel1.add(jtxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 450, 180, -1));
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 180, 30));
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 160, -1));
+        jPanel1.add(jtxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, 180, 40));
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel10.setText("Ciudad:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel11.setText("Sector:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 220, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel12.setText("Numero de casa:");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel13.setText("Celular:");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
+        jPanel1.add(jtxtSector, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 210, 130, 40));
+        jPanel1.add(jtxtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, 130, 40));
+        jPanel1.add(jtxtNcasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 180, 40));
+        jPanel1.add(jtxtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 180, 40));
 
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 590));
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 510));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,7 +208,7 @@ public class Agregarc extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -228,9 +243,7 @@ public class Agregarc extends javax.swing.JFrame {
     //Boton para Agregar al cliente
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-       
-        
-        Date fecha = null;
+    
         String Codigo = String.valueOf(a);
         String Nombre = jtxtNombre.getText();
         String Apellido = jtxtApellido.getText();
@@ -242,20 +255,15 @@ public class Agregarc extends javax.swing.JFrame {
             ele = "f";
         }
         String Sexo = ele;
-        String Direccion = jtxtDireccion.getText();
+        String Ciudad = jtxtCiudad.getText();
+        String Sector = jtxtSector.getText();
+        String Calle = jtxtCalle.getText();
+        String Ncasa = jtxtNcasa.getText();
         String Telefono = jtxtTelefono.getText();
+        String Celular = jtxtCelular.getText();
         String Email = jtxtEmail.getText();
-        SimpleDateFormat formato = new SimpleDateFormat("YYYY/MM/dd");
-        
         try{
-        String fechana = "";
-        fechana = formato.format(jDateChooser1.getDate());
-        
-        if(fechana.equals("")){
-            JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-        
-        if(Nombre.equals("") || Apellido.equals("") || Cedula.equals("") || fechana.equals("") || Sexo.equals("") || Direccion.equals("") || Telefono.equals("") || Email.equals("")){
+        if(Nombre.equals("") || Apellido.equals("") || Cedula.equals("") || Sexo.equals("") || Ciudad.equals("") || Sector.equals("") || Calle.equals("") || Ncasa.equals("") || Telefono.equals("") || Celular.equals("") || Email.equals("")){
         
             JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
             
@@ -263,33 +271,35 @@ public class Agregarc extends javax.swing.JFrame {
             try{
                     
                     try{
-                    cc.Insert("insert into Clientes(Id_cliente, Nombre, Apellido, Cedula, Fecha_naci, Sexo, Direccion, Telefono, Correo_elec)"
-                            + "values ("+Codigo+", '"+Nombre+"', '"+Apellido+"', '"+Cedula+"', '"+fechana+"', '"+Sexo+"', '"+Direccion+"', '"+Telefono+"', '"+Email+"')");
+                    cc.Insert("insert into Clientes(Id_cliente, Nombre_cli, Apellido_cli, Cedula_cli, Sexo_cli, Ciudad_cli, Sector_cli, Calle_cli, NCasa_cli, Telefono_cli, Celular_cli, Correo_cli)"
+                            + "values ("+Codigo+", '"+Nombre+"', '"+Apellido+"', '"+Cedula+"', '"+Sexo+"', '"+Ciudad+"', '"+Sector+"', '"+Calle+"', '"+Ncasa+"', '"+Telefono+"', '"+Celular+"', '"+Email+"')");
                     this.j = "";
                     
                     jtxtNombre.setText("");
                     jtxtApellido.setText("");
                     jtxtCedula.setText("");
                     ele = "";
-                    jtxtDireccion.setText("");
+                    jtxtCiudad.setText("");
+                    jtxtSector.setText("");
+                    jtxtCalle.setText("");
+                    jtxtNcasa.setText("");
                     jtxtTelefono.setText("");
+                    jtxtCelular.setText("");
                     jtxtEmail.setText("");
-                    jDateChooser1.setDate(fecha);
-                    fechana = "";
                     this.gara = 0;
                     
                      }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
                     } finally{
-                        cc.cerrar();
+                        cc.close();
                     }
 
             }catch(Exception e){
 
             } finally{
-                cc.cerrar();
+                cc.close();
             }
-        }
+        
         } }catch(Exception e){
         JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -340,14 +350,16 @@ public class Agregarc extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCbSexo;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -355,13 +367,17 @@ public class Agregarc extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jblUsu1;
     private javax.swing.JTextField jtxtApellido;
+    private javax.swing.JTextField jtxtCalle;
     private javax.swing.JTextField jtxtCedula;
-    private javax.swing.JTextField jtxtDireccion;
+    private javax.swing.JTextField jtxtCelular;
+    private javax.swing.JTextField jtxtCiudad;
     private javax.swing.JTextField jtxtEmail;
+    private javax.swing.JTextField jtxtNcasa;
     private javax.swing.JTextField jtxtNombre;
+    private javax.swing.JTextField jtxtSector;
     private javax.swing.JTextField jtxtTelefono;
     // End of variables declaration//GEN-END:variables
 
-    Conectar cc = new Conectar();
+    Conectar_Oracle cc = new Conectar_Oracle();
     
 }

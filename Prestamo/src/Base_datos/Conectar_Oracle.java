@@ -34,7 +34,7 @@ public class Conectar_Oracle {
         try {
             
             //Class.forName("org.sqlite.JDBC");
-            cn = DriverManager.getConnection(BaseDeDatos,"prestamo","Oscar3031");
+            cn = DriverManager.getConnection(BaseDeDatos,"ADM","Administrador");
             if (cn!=null) {
                 JOptionPane.showMessageDialog(null, "Se conecto correctamente", "Connecion a la base de datos", JOptionPane.INFORMATION_MESSAGE);
             }

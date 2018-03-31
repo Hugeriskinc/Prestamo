@@ -1,135 +1,77 @@
-create table Referencia(
-Id_Referencia numeric(7) not null,
-Nombre varchar2(20) not null,
-Apellido varchar2(20) not null,
-Cedula varchar2(14) not null,
-Telefono varchar2(13),
-constraint pk_Referencia primary key(Id_Referencia));
+Create Table Clientes(
+ID_cliente numeric(7) not null,
+Nombre_cli varchar2(20) not null,
+Apellido_cli varchar2(20) not null,
+Cedula_cli varchar2(14) not null,
+Sexo_cli varchar2(1),
+Ciudad_cli Varchar2(50),
+Sector_cli Varchar2(50),
+Calle_cli Varchar2(50),
+NCasa_cli Varchar2(20),
+Telefono_cli varchar2(13),
+Celular_cli varchar2(13) not null,
+Correo_cli varchar2(50),
+constraint pk_Clientes primary key(Id_cliente));
 
-create table Empleado(
-Id_empleado numeric(7) not null,
-Nombre varchar2(20) not null,
-Apellido varchar2(20) not null,
-Cedula varchar2(14) not null,
-Fecha_naci date,
-Sexo varchar2(1),
-Direccion varchar2(100),
-Telefono varchar2(13),
-Usuario varchar2(10) not null,
-Contrasena varchar2(10) not null,
-Fecha_ini date,
-Categoria varchar2(3),
-id_Referencia numeric(7) not null,
-constraint pk_Empleado primary key(Id_empleado),
-constraint fk_referencia foreign key(id_Referencia) references Referencia(id_referencia));
+select * from clientes;
 
+Create Table Cliente_Empleo(
+ID_Empleo numeric(7),
+ID_Cliente numeric(7),
+Nombre_Empresa Varchar2(75),
+Direccion_Empresa Varchar2(200),
+Puesto Varchar(50),
+Ingresos_Clientes Numeric(9,2),
+Constraint PK_Cliente_Empleo Primary Key (ID_Empleo,ID_Cliente),
+Constraint FK_Cliente_Empleo Foreign Key (ID_Cliente) References Clientes(ID_Cliente));
 
-create table Tipo_Garante(
-Id_Garante numeric(7) not null,
-Nombre_completo varchar2(20) not null,
-Cedula varchar2(14) not null,
-Fecha_naci date,
-Sexo varchar2(1),
-Direccion varchar2(30),
-Telefono varchar2(13),
-Tipo varchar2(10),
-constraint pk_Tipo_Garante primary key(Id_Garante));
+Create Table Garantia_solidaria(
+Id_GaranSolid numeric(7),
+Nombre_solid varchar2(20) not null,
+Cedula_solid varchar2(14) not null,
+Sexo_solid varchar2(1),
+Direccion_solid varchar2(200),
+Telefono_solid varchar2(13),
+Direccion_Empleo varchar2(200),
+constraint pk_Garante_Persona primary key(Id_Garante));
 
-create table Clientes(
-Id_cliente numeric(7) not null,
-Nombre varchar2(20) not null,
-Apellido varchar2(20) not null,
-Cedula varchar2(14) not null,
-Fecha_naci date,
-Sexo varchar2(1),
-Direccion varchar2(30),
-Telefono varchar2(13),
-Correo_elec varchar2(50),
-constraint pk_Cliente primary key(Id_cliente));
-
-create table Solicitud(
-Id_Solicitud numeric(7) not null,
-Nombre_cliente varchar2(20),
-Cedula varchar2(15) not null,
-Monto_prestamo numeric(20),
-Correo_elec varchar2(50),
-Tipo_garante varchar2(10),
-Fecha_re date,
-Id_empleado numeric(7) not null,
-Estatus varchar2(20),
-constraint pk_solicutid primary key(Id_solicitud)
+Create Table Garantia_Hipotecaria(
+ID_GaranHipo Numeric(7),
+Direccion_Vivienda Varchar2(200),
+Tipo_Vivienda Varchar2(50),
+Nombre_Dueno Varchar2(50),
+Cedula_Dueno Varchar2(14),
+Titulo_Propiedad Varchar2(50),
+Constraint PK_Garantia_Hipotecaria Primary Key (ID_GaranHipo )
 );
 
-create table Prestamo(
-Id_prestamo numeric(10) not null,
-Monto_deuda numeric(38),
-Monto_restante numeric(38),
-Monto_total numeric(38),
-Tipo_pago varchar2(20),
-Itebis numeric(38),
-Ganancias numeric(38),
-Id_cliente numeric(7),
-Fecha_prestamo date,
-Estatus varchar2(10),
-constraint pk_Prestamo primary key(Id_prestamo),
-constraint fk_Client foreign key(Id_cliente) references Clientes(Id_cliente));
-
-create table Amortizacion(
-Id_amortizacion numeric(10),
-Monto_total varchar2(20),
-Interes varchar2(20),
-Plazo varchar2(20),
-Cuotas varchar2(20),
-DeudaM varchar2(20),
-Fecha date,
-Id_prestamo numeric(10),
-Estado varchar2(20),
-constraint fk_Prestamo2 foreign key(Id_prestamo) references Prestamo(Id_prestamo)
+Create Table Garantia_Prendaria(
+ID_GaranPren Numeric(7),
+Marca_Vehiculo Varchar2(30),
+Modelo_Vehiculo Varchar2(30),
+Año_Vehiculo Date,
+Matricula_Vehiculo Varchar2(15),
+Dueno_vehiculo Varchar2(50),
+Direccion_Dueno Varchar2(200),
+Constraint PK_Garantia_Prendaria Primary Key (ID_GaranPren) 
 );
 
-create table factura(
-Id_factura numeric(7) not null,
-Id_Cliente numeric(7) not null,
-Id_prestamo numeric(7) not null,
-Id_empleado numeric(7) not null,
-Monto_pagado numeric(38),
-Monto_restante numeric(38),
-Id_amortizacion numeric(10), 
-Fecha date,
-constraint pk_Factura primary key(Id_factura),
-constraint fk_Cliente1 foreign key(Id_cliente) references Clientes(Id_cliente),
-constraint fk_Prestamo1 foreign key(Id_prestamo) references Prestamo(Id_prestamo),
-constraint fk_empleado foreign key(Id_empleado) references Empleado(Id_empleado));
+Create Table Empleado(
+ID_empleado Numeric(7) not null,
+Nombre_emp varchar2(20) not null,
+Apellido_emp varchar2(20) not null,
+Cedula_emp varchar2(14) not null,
+Sexo_emp varchar2(1),
+Direccion_emp varchar2(100),
+Telefono_emp varchar2(13),
+Celular_emp varchar2(13),
+Usuario_emp varchar2(10) not null,
+Contrasena_emp varchar2(10) not null,
+Fecha_ini_emp date,
+Categoria_emp varchar2(3),
+Constraint pk_Empleado primary key(Id_empleado));
 
-create table Ingreso(
-id_ingreso numeric(10) not null,
-Id_prestamo numeric(10) not null,
-Monto numeric(38),
-constraint pk_Igreso primary key(Id_ingreso),
-constraint fk_Prestamo foreign key(Id_prestamo) references Prestamo(Id_prestamo));
+select * from empleado;
+drop table empleado;
 
-create table Emple_Solici(
-Id_empleado numeric(7) not null,
-Id_Solicitud numeric(7) not null,
-constraint fk_empl foreign key(Id_empleado) references Empleado(Id_empleado),
-constraint fk_Soli foreign key(Id_Solicitud) references Solicitud(Id_Solicitud)
-);
-
-create table Emple_pres(
-Id_Empleado numeric(7) not null,
-Id_prestamo numeric(7) not null,
-constraint fk_emple foreign key(Id_empleado) references Empleado(Id_empleado),
-constraint fk_prestamo3 foreign key(Id_prestamo) references Prestamo(Id_prestamo)
-);
-
-drop table Emple_Solici;
-drop table Emple_pres;
-drop table Factura;
-drop table Ingreso;
-drop table Prestamo;
-drop table Clientes;
-drop table Tipo_Garante;
-drop table Solicitud;
-drop table Empleado;
-drop table amortizacion;
-drop table Referencia;
+create user ADM identified by Administrador;

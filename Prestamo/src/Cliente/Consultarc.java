@@ -5,8 +5,7 @@
  */
 package Cliente;
 
-import Base_datos.Conectar;
-import Menu.Menu_ADM;
+import Base_datos.Conectar_Oracle;
 import Solicitud.Solicitud;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -26,22 +25,22 @@ public class Consultarc extends javax.swing.JFrame {
     public Consultarc() {
         initComponents();
         
-        ResultSet rs = bd.Vertodo("select * from Clientes");
+        
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono", "Correo Electronico"});
+        model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Sexo", "Ciudad","Sector", "Calle", "Numero de casa", "Telefono", "Celular", "Correo Electronico"});
         try{
-            
+            ResultSet rs = bd.Vertodo("select * from Clientes");
             while(rs.next()){
                 
-                model.addRow(new Object[]{rs.getInt("id_cliente"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getString("Cedula"), rs.getString("Fecha_naci"), rs.getString("Sexo"), rs.getString("Direccion"), rs.getString("Telefono"), rs.getString("Correo_elec")});
+                model.addRow(new Object[]{rs.getInt("Id_cliente"), rs.getString("Nombre_cli"), rs.getString("Apellido_cli"), rs.getString("Cedula_cli"), rs.getString("Sexo_cli"), rs.getString("Ciudad_cli"), rs.getString("Sector_cli"), rs.getString("Calle_cli"), rs.getString("NCasa_cli"), rs.getString("Telefono_cli"), rs.getString("Celular_cli"), rs.getString("Correo_cli")});
                 
             }
             
         } catch(Exception e){
             
         } finally{
-            bd.cerrar();
+            bd.close();
         }
         
     }
@@ -199,22 +198,22 @@ public class Consultarc extends javax.swing.JFrame {
                 if(Character.isDigit(k)){
                     JOptionPane.showMessageDialog(null, "Solo Puede introducir Letras", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } else{
-                ResultSet rs = bd.Vertodo("select * from Clientes where Nombre like'"+nombre+"%'");
+               
                     DefaultTableModel model = new DefaultTableModel();
                     jtTabla.setModel(model);
-                    model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono", "Correo Electronico"});
-                    try{
-
+                    model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Sexo", "Ciudad","Sector", "Calle", "Numero de casa", "Telefono", "Celular", "Correo Electronico"});
+                        try{
+                         ResultSet rs = bd.Vertodo("select * from Clientes where Nombre_cli like'"+nombre+"%'");
                         while(rs.next()){
 
-                            model.addRow(new Object[]{rs.getInt("id_cliente"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getString("Cedula"), rs.getString("Fecha_naci"), rs.getString("Sexo"), rs.getString("Direccion"), rs.getString("Telefono"), rs.getString("Correo_elec")});
-
+                            model.addRow(new Object[]{rs.getInt("Id_cliente"), rs.getString("Nombre_cli"), rs.getString("Apellido_cli"), rs.getString("Cedula_cli"), rs.getString("Sexo_cli"), rs.getString("Ciudad_cli"), rs.getString("Sector_cli"), rs.getString("Calle_cli"), rs.getString("NCasa_cli"), rs.getString("Telefono_cli"), rs.getString("Celular_cli"), rs.getString("Correo_cli")});
+                
                         }
 
                     } catch(Exception e){
                         
                     } finally{
-                        bd.cerrar();
+                        bd.close();
                     }
                 }
             }
@@ -228,11 +227,11 @@ public class Consultarc extends javax.swing.JFrame {
                 ResultSet rs = bd.Vertodo("select * from Clientes where id_Cliente = "+nombre+"");
                 DefaultTableModel model = new DefaultTableModel();
                 jtTabla.setModel(model);
-                model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono", "Correo Electronico"});
+                model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Sexo", "Ciudad","Sector", "Calle", "Numero de casa", "Telefono", "Celular", "Correo Electronico"});
         
                     while(rs.next()){
 
-                        model.addRow(new Object[]{rs.getInt("id_cliente"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getString("Cedula"), rs.getString("Fecha_naci"), rs.getString("Sexo"), rs.getString("Direccion"), rs.getString("Telefono"), rs.getString("Correo_elec")});
+                        model.addRow(new Object[]{rs.getInt("Id_cliente"), rs.getString("Nombre_cli"), rs.getString("Apellido_cli"), rs.getString("Cedula_cli"), rs.getString("Sexo_cli"), rs.getString("Ciudad_cli"), rs.getString("Sector_cli"), rs.getString("Calle_cli"), rs.getString("NCasa_cli"), rs.getString("Telefono_cli"), rs.getString("Celular_cli"), rs.getString("Correo_cli")});
                 
                     }
                 }
@@ -242,7 +241,7 @@ public class Consultarc extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
 
                 } finally{
-                    bd.cerrar();
+                    bd.close();
                 }
             }
         }
@@ -251,22 +250,22 @@ public class Consultarc extends javax.swing.JFrame {
 
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
 
-        ResultSet rs = bd.Vertodo("select * from Clientes");
+        
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono", "Correo Electronico"});
+        model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Sexo", "Ciudad","Sector", "Calle", "Numero de casa", "Telefono", "Celular", "Correo Electronico"});
         try{
-
+            ResultSet rs = bd.Vertodo("select * from Clientes");
             while(rs.next()){
 
-                model.addRow(new Object[]{rs.getInt("id_cliente"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getString("Cedula"), rs.getString("Fecha_naci"), rs.getString("Sexo"), rs.getString("Direccion"), rs.getString("Telefono"), rs.getString("Correo_elec")});
+                model.addRow(new Object[]{rs.getInt("Id_cliente"), rs.getString("Nombre_cli"), rs.getString("Apellido_cli"), rs.getString("Cedula_cli"), rs.getString("Sexo_cli"), rs.getString("Ciudad_cli"), rs.getString("Sector_cli"), rs.getString("Calle_cli"), rs.getString("NCasa_cli"), rs.getString("Telefono_cli"), rs.getString("Celular_cli"), rs.getString("Correo_cli")});
                 
             }
 
         } catch(Exception e){
 
         } finally{
-            bd.cerrar();
+            bd.close();
         }
     }//GEN-LAST:event_jbtMostrarActionPerformed
 
@@ -341,7 +340,7 @@ public class Consultarc extends javax.swing.JFrame {
         });
     }
     
-    Conectar bd = new Conectar();
+    Conectar_Oracle bd = new Conectar_Oracle();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

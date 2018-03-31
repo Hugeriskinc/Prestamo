@@ -5,14 +5,16 @@
  */
 package Empleado;
 
-import Base_datos.Conectar;
-import Menu.Menu_ADM;
+import Base_datos.Conectar_Oracle;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -33,18 +35,12 @@ public class Agregare extends javax.swing.JFrame {
         
         int a1=0, b1=0;
         
-        ResultSet rs1 = cc.Vertodo("select * from Empleado");
-        ResultSet rs2 = cc.Vertodo("select * from Referencia");
+        
         try{
-            
+            ResultSet rs1 = cc.Vertodo("select * from Empleado");
             while(rs1.next()){
             a1 = rs1.getInt("Id_empleado");
-            gh = rs1.getString("Usuario");
-            }
-            
-            while(rs2.next()){
-            b1 = rs2.getInt("Id_Referencia");
-                
+            gh = rs1.getString("Usuario_emp");
             }
             
             
@@ -53,11 +49,10 @@ public class Agregare extends javax.swing.JFrame {
         } catch(Exception e){
             
         } finally{
-            cc.cerrar();
+            cc.close();
         }
         
         jblUsu1.setText(String.valueOf(a));
-        jblUsu2.setText(String.valueOf(b));
         jCbSexo.removeAllItems();
         jCbSexo.insertItemAt("Masculino", 0);
         jCbSexo.insertItemAt("Femenino", 1);
@@ -73,22 +68,6 @@ public class Agregare extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jdReferencia = new javax.swing.JDialog();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jtxtNombre2 = new javax.swing.JTextField();
-        jtxtApellido2 = new javax.swing.JTextField();
-        jtxtCedula2 = new javax.swing.JTextField();
-        jtxtTelefono2 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jblUsu2 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -101,11 +80,10 @@ public class Agregare extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jtxtNombre = new javax.swing.JTextField();
         jtxtApellido = new javax.swing.JTextField();
-        jtxtCedula = new javax.swing.JTextField();
+        jtxtCelular = new javax.swing.JTextField();
         jtxtDireccion = new javax.swing.JTextField();
         jtxtTelefono = new javax.swing.JTextField();
         jtxtUsuario = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
@@ -115,78 +93,8 @@ public class Agregare extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jblUsu1 = new javax.swing.JLabel();
         jCbSexo = new javax.swing.JComboBox<>();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jtxtCedula = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-
-        jdReferencia.setTitle("Registro Su Referencia");
-        jdReferencia.setMinimumSize(new java.awt.Dimension(787, 397));
-
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel7.setText("Registro Referencia");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel8.setText("Nombre:");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 121, -1, -1));
-
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel13.setText("Apellido:");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 162, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel14.setText("Cedula:");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 196, -1, -1));
-        jPanel3.add(jtxtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 124, 220, -1));
-        jPanel3.add(jtxtApellido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 165, 220, -1));
-        jPanel3.add(jtxtCedula2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 199, 220, -1));
-        jPanel3.add(jtxtTelefono2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 220, -1));
-
-        jButton5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Guardar.png"))); // NOI18N
-        jButton5.setText("Guardar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 140, 50));
-
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
-        jButton6.setText("Volver");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 120, 40));
-
-        jLabel24.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel24.setText("Telefono:");
-        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 237, -1, -1));
-
-        jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel16.setText("N. Registro");
-        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, -1, -1));
-
-        jblUsu2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanel3.add(jblUsu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, 58, 42));
-
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 390));
-
-        javax.swing.GroupLayout jdReferenciaLayout = new javax.swing.GroupLayout(jdReferencia.getContentPane());
-        jdReferencia.getContentPane().setLayout(jdReferenciaLayout);
-        jdReferenciaLayout.setHorizontalGroup(
-            jdReferenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        jdReferenciaLayout.setVerticalGroup(
-            jdReferenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro Empleados");
@@ -211,7 +119,7 @@ public class Agregare extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 196, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel5.setText("Fecha nacimiento:");
+        jLabel5.setText("Celular:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 239, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -231,20 +139,10 @@ public class Agregare extends javax.swing.JFrame {
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, -1, 20));
         jPanel1.add(jtxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 114, 220, 30));
         jPanel1.add(jtxtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 155, 220, 30));
-        jPanel1.add(jtxtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 189, 220, 30));
+        jPanel1.add(jtxtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 220, 30));
         jPanel1.add(jtxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 320, 220, 30));
         jPanel1.add(jtxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 361, 220, 30));
         jPanel1.add(jtxtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, 220, 30));
-
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Insertar.png"))); // NOI18N
-        jButton1.setText("Referencia");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 540, 160, 60));
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Añadir.png"))); // NOI18N
@@ -285,7 +183,7 @@ public class Agregare extends javax.swing.JFrame {
 
         jCbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(jCbSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 279, 220, 30));
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 220, 30));
+        jPanel1.add(jtxtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(397, 189, 220, 30));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 620));
@@ -313,15 +211,6 @@ public class Agregare extends javax.swing.JFrame {
         return retValue;
     }
     
-    public static String fecha(){
-        
-        Date fecha = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("YYYY/MM/dd");
-        
-        return formato.format(fecha);
-        
-    }
-    
     //Boton volver al menu
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        
@@ -332,7 +221,13 @@ public class Agregare extends javax.swing.JFrame {
     //Boto para guardar El empleado
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        Date fecha = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+        java.util.Date date = new java.util.Date();
+        long t = date.getTime();
+        java.sql.Date sqlDate = new java.sql.Date(t);
+        String sql = "insert into empleado values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        Connection cn = null;
+        PreparedStatement insert;
         String Codigo = String.valueOf(a);
         String Nombre = jtxtNombre.getText();
         String Apellido = jtxtApellido.getText();
@@ -346,123 +241,65 @@ public class Agregare extends javax.swing.JFrame {
         String Sexo = ele;
         String Direccion = jtxtDireccion.getText();
         String Telefono = jtxtTelefono.getText();
+        String Celular = jtxtCelular.getText();
         String Usuario = jtxtUsuario.getText();
         String Contrase = jtxtContrase.getText();
-        String Fechaini = fecha();
-        SimpleDateFormat formato = new SimpleDateFormat("YYYY/MM/dd");
-        
-        try{
-        String fechana = "";
-        fechana = formato.format(jDateChooser1.getDate());
-        
         String Categoria = jtxtCategoria.getText();
-        if(fechana.equals("")){
-            JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-             
-        
-        if(Nombre.equals("") || Apellido.equals("") || Cedula.equals("") || Sexo.equals("") || Direccion.equals("") || Telefono.equals("") || Usuario.equals("") || Contrase.equals("") || Categoria.equals("")){
+        try{
+        cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ADM","Administrador");
+        if(Nombre.equals("") || Apellido.equals("") || Cedula.equals("") || Sexo.equals("") || Direccion.equals("") || Categoria.equals("")){
         
             JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
             
         }else{
-            try{
-
-                if(this.j.equals("Leno")){
-                    
-                    if(Usuario.equals(gh)){
+            if(Usuario.equals(gh)){
                     JOptionPane.showMessageDialog(null, "El usuario esta registrado", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                    try{
-                    cc.Insert("insert into Empleado(Id_Empleado, nombre, apellido, cedula, fecha_naci, Sexo, Direccion, Telefono, usuario, contrasena, fecha_ini, categoria, id_referencia)"
-                            + "values ("+Codigo+", '"+Nombre+"', '"+Apellido+"', '"+Cedula+"', '"+fechana+"', '"+Sexo+"', '"+Direccion+"', '"+Telefono+"', '"+Usuario+"', '"+Contrase+"', '"+Fechaini+"', '"+Categoria+"', "+this.b+")");
+                try{
+             
+                insert = cn.prepareStatement(sql);
+                
+                    
+                    insert.setInt(1, Integer.parseInt(Codigo));
+                    insert.setString(2, Nombre);
+                    insert.setString(3, Apellido);
+                    insert.setString(4, Cedula);
+                    insert.setString(5, Sexo);
+                    insert.setString(6, Direccion);
+                    insert.setString(7, Telefono);
+                    insert.setString(8, Celular);
+                    insert.setString(9, Usuario);
+                    insert.setString(10, Contrase);
+                    insert.setDate(11, sqlDate);
+                    insert.setString(12, Categoria);
+                    insert.executeUpdate();
                     this.j = "";
                     
                     jtxtNombre.setText("");
                     jtxtApellido.setText("");
-                    jtxtCedula.setText("");
+                    jtxtCelular.setText("");
                     ele = "";
                     jtxtDireccion.setText("");
+                    jtxtCedula.setText("");
                     jtxtTelefono.setText("");
-                    jtxtTelefono.setText("");
+                    jtxtCelular.setText("");
                     jtxtUsuario.setText("");
                     jtxtContrase.setText("");
-                    jDateChooser1.setDate(fecha);
                     jtxtCategoria.setText("");
-                    this.b = 0;
-                    this.hide();
+                    
+                    JOptionPane.showMessageDialog(null, "Se Agrego El Registro ", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+                    
                      }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No Se Agrego El Registro " + e, "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } finally{
-                    cc.cerrar();
-                }
-                    }
-                
-                } else {
-                    
-                    JOptionPane.showMessageDialog(null, "Faltan por llenar la referencia!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
-                
-                }
-            }catch(Exception e){
-
-            } finally{
-                cc.cerrar();
-            }
-        }
-        }} catch(Exception e){
-        JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+                    cc.close();
+                }}}
+        } catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Faltan datos por introducir! hola", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
         }
         
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    //Boton para guardar la referencia
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        
-        
-        String Codigo = String.valueOf(b);
-        String Nombre = jtxtNombre2.getText();
-        String Apellido = jtxtApellido2.getText();
-        String Cedula = jtxtCedula2.getText();
-        String Telefono = jtxtTelefono2.getText();
-        
-        if(Nombre.equals("") || Apellido.equals("") || Cedula.equals("") || Telefono.equals("")){
-        
-            JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
             
-        }else{
-                try{
-                    
-                    cc.Insert("insert into Referencia(id_referencia, nombre, apellido, cedula, telefono)"
-                            + "values ("+Codigo+", '"+Nombre+"', '"+Apellido+"', '"+Cedula+"', '"+Telefono+"')");
-                    this.j= "Leno";
-                    jtxtNombre2.setText("");
-                    jtxtApellido2.setText("");
-                    jtxtCedula2.setText("");
-                    jtxtTelefono2.setText("");
-                    
-                }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
-                } finally{
-                    cc.cerrar();
-                }
-                jdReferencia.hide();
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    //Para llamar a referencia
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        jdReferencia.show();
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    //Boton para volver a agregar empleado
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
-        jdReferencia.hide();
-        
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,52 +340,35 @@ public class Agregare extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jCbSexo;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel jblUsu1;
-    private javax.swing.JLabel jblUsu2;
-    private javax.swing.JDialog jdReferencia;
     private javax.swing.JTextField jtxtApellido;
-    private javax.swing.JTextField jtxtApellido2;
     private javax.swing.JTextField jtxtCategoria;
     private javax.swing.JTextField jtxtCedula;
-    private javax.swing.JTextField jtxtCedula2;
+    private javax.swing.JTextField jtxtCelular;
     private javax.swing.JTextField jtxtContrase;
     private javax.swing.JTextField jtxtDireccion;
     private javax.swing.JTextField jtxtNombre;
-    private javax.swing.JTextField jtxtNombre2;
     private javax.swing.JTextField jtxtTelefono;
-    private javax.swing.JTextField jtxtTelefono2;
     private javax.swing.JTextField jtxtUsuario;
     // End of variables declaration//GEN-END:variables
 
-    Conectar cc = new Conectar();
-
+    Conectar_Oracle cc = new Conectar_Oracle();
+    
 }

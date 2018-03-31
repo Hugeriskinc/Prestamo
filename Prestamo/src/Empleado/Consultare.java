@@ -5,7 +5,7 @@
  */
 package Empleado;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import Menu.Menu_ADM;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -25,22 +25,22 @@ public class Consultare extends javax.swing.JFrame {
     public Consultare() {
         initComponents();
         
-        ResultSet rs = bd.Vertodo("select * from Empleado");
+        
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del empleado","Nombre Del empleado","Apellido del empleado", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion", "Telefono", "Usuario", "Contraseña", "Fecha de inicio", "Categoria"});
+        model.setColumnIdentifiers(new Object[]{"Codigo del empleado","Nombre Del empleado","Apellido del empleado", "Cedula", "Sexo", "Direccion", "Telefono", "Celular", "Usuario", "Contraseña", "Fecha de inicio", "Categoria"});
         try{
-            
+            ResultSet rs = bd.Vertodo("select * from Empleado");
             while(rs.next()){
                 
-                model.addRow(new Object[]{rs.getInt("Id_empleado"), rs.getString("Nombre"),rs.getString("Apellido"),rs.getString("Cedula"), rs.getInt("Fecha_naci"),rs.getString("Sexo"),rs.getString("Direccion"),rs.getString("Telefono"),rs.getString("Usuario"),rs.getString("Contrasena"),rs.getInt("Fecha_ini"),rs.getString("Categoria")});
+                model.addRow(new Object[]{rs.getInt("Id_empleado"), rs.getString("Nombre_emp"),rs.getString("Apellido_emp"),rs.getString("Cedula_emp"),rs.getString("Sexo_emp"),rs.getString("Direccion_emp"),rs.getString("Telefono_emp"), rs.getString("Celular_emp"), rs.getString("Usuario_emp"),rs.getString("Contrasena_emp"),rs.getString("Fecha_ini_emp"),rs.getString("Categoria_emp")});
                 
             }
             
         } catch(Exception e){
             System.out.println(e);
         } finally{
-            bd.cerrar();
+            bd.close();
         }
         
     }
@@ -181,22 +181,22 @@ public class Consultare extends javax.swing.JFrame {
                 if(Character.isDigit(k)){
                     JOptionPane.showMessageDialog(null, "Solo Puede introducir Letras", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } else{
-                ResultSet rs = bd.Vertodo("select * from Empleado where Nombre like'"+nombre+"%'");
+                
                 DefaultTableModel model = new DefaultTableModel();
                 jtTabla.setModel(model);
-                model.setColumnIdentifiers(new Object[]{"Codigo del empleado","Nombre Del empleado","Apellido del empleado", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion", "Telefono", "Usuario", "Contraseña", "Fecha de inicio", "Categoria"});
+                model.setColumnIdentifiers(new Object[]{"Codigo del empleado","Nombre Del empleado","Apellido del empleado", "Cedula", "Sexo", "Direccion", "Telefono", "Celular", "Usuario", "Contraseña", "Fecha de inicio", "Categoria"});
                 try{
-
+                    ResultSet rs = bd.Vertodo("select * from Empleado where Nombre_emp like'"+nombre+"%'");
                     while(rs.next()){
 
-                        model.addRow(new Object[]{rs.getInt("Id_empleado"), rs.getString("Nombre"),rs.getString("Apellido"),rs.getString("Cedula"), rs.getInt("Fecha_naci"),rs.getString("Sexo"),rs.getString("Direccion"),rs.getString("Telefono"),rs.getString("Usuario"),rs.getString("Contrasena"),rs.getInt("Fecha_ini"),rs.getString("Categoria")});
+                        model.addRow(new Object[]{rs.getInt("Id_empleado"), rs.getString("Nombre_emp"),rs.getString("Apellido_emp"),rs.getString("Cedula_emp"),rs.getString("Sexo_emp"),rs.getString("Direccion_emp"),rs.getString("Telefono_emp"), rs.getString("Celular_emp"), rs.getString("Usuario_emp"),rs.getString("Contrasena_emp"),rs.getString("Fecha_ini_emp"),rs.getString("Categoria_emp")});
                 
                     }
 
                 } catch(Exception e){
 
                 } finally{
-                    bd.cerrar();
+                    bd.close();
                 }
             }
             }
@@ -211,12 +211,12 @@ public class Consultare extends javax.swing.JFrame {
                 ResultSet rs = bd.Vertodo("select * from Empleado where id_empleado = "+nombre+"");
                 DefaultTableModel model = new DefaultTableModel();
                 jtTabla.setModel(model);
-                model.setColumnIdentifiers(new Object[]{"Codigo del empleado","Nombre Del empleado","Apellido del empleado", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion", "Telefono", "Usuario", "Contraseña", "Fecha de inicio", "Categoria"});
-                
+                model.setColumnIdentifiers(new Object[]{"Codigo del empleado","Nombre Del empleado","Apellido del empleado", "Cedula", "Sexo", "Direccion", "Telefono", "Celular", "Usuario", "Contraseña", "Fecha de inicio", "Categoria"});
+        
 
                     while(rs.next()){
 
-                        model.addRow(new Object[]{rs.getInt("Id_empleado"), rs.getString("Nombre"),rs.getString("Apellido"),rs.getString("Cedula"), rs.getInt("Fecha_naci"),rs.getString("Sexo"),rs.getString("Direccion"),rs.getString("Telefono"),rs.getString("Usuario"),rs.getString("Contrasena"),rs.getInt("Fecha_ini"),rs.getString("Categoria")});
+                        model.addRow(new Object[]{rs.getInt("Id_empleado"), rs.getString("Nombre_emp"),rs.getString("Apellido_emp"),rs.getString("Cedula_emp"),rs.getString("Sexo_emp"),rs.getString("Direccion_emp"),rs.getString("Telefono_emp"), rs.getString("Celular_emp"), rs.getString("Usuario_emp"),rs.getString("Contrasena_emp"),rs.getString("Fecha_ini_emp"),rs.getString("Categoria_emp")});
                 
                     }
                     }
@@ -226,7 +226,7 @@ public class Consultare extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                     
                 } finally{
-                    bd.cerrar();
+                    bd.close();
                 }
                 
             }
@@ -236,22 +236,22 @@ public class Consultare extends javax.swing.JFrame {
 
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
 
-        ResultSet rs = bd.Vertodo("select * from Empleado");
+        
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del empleado","Nombre Del empleado","Apellido del empleado", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion", "Telefono", "Usuario", "Contraseña", "Fecha de inicio", "Categoria"});
+        model.setColumnIdentifiers(new Object[]{"Codigo del empleado","Nombre Del empleado","Apellido del empleado", "Cedula", "Sexo", "Direccion", "Telefono", "Celular", "Usuario", "Contraseña", "Fecha de inicio", "Categoria"});
         try{
-
+            ResultSet rs = bd.Vertodo("select * from Empleado");
             while(rs.next()){
 
-                model.addRow(new Object[]{rs.getInt("Id_empleado"), rs.getString("Nombre"),rs.getString("Apellido"),rs.getString("Cedula"), rs.getInt("Fecha_naci"),rs.getString("Sexo"),rs.getString("Direccion"),rs.getString("Telefono"),rs.getString("Usuario"),rs.getString("Contrasena"),rs.getInt("Fecha_ini"),rs.getString("Categoria")});
+                model.addRow(new Object[]{rs.getInt("Id_empleado"), rs.getString("Nombre_emp"),rs.getString("Apellido_emp"),rs.getString("Cedula_emp"),rs.getString("Sexo_emp"),rs.getString("Direccion_emp"),rs.getString("Telefono_emp"), rs.getString("Celular_emp"), rs.getString("Usuario_emp"),rs.getString("Contrasena_emp"),rs.getString("Fecha_ini_emp"),rs.getString("Categoria_emp")});
                 
             }
 
         } catch(Exception e){
 
         } finally{
-            bd.cerrar();
+            bd.close();
         }
 
     }//GEN-LAST:event_jbtMostrarActionPerformed
@@ -298,7 +298,7 @@ public class Consultare extends javax.swing.JFrame {
         });
     }
     
-    Conectar bd = new Conectar();
+    Conectar_Oracle bd = new Conectar_Oracle();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
