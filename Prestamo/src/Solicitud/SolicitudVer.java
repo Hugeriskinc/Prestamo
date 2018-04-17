@@ -5,7 +5,7 @@
  */
 package Solicitud;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,11 +22,12 @@ public class SolicitudVer extends javax.swing.JFrame {
     public SolicitudVer() {
         initComponents();
         
+        try{
         ResultSet rs = bd.Vertodo("select * from Solicitud");
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
         model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Nombre Del Cliente", "Cedula", "Monto Solicitado", "Correo Eletronico", "Garante", "Fecha de Registro", "Codigo del epleado", "Estatus"});
-                try{
+                
             
             while(rs.next()){
                 
@@ -37,7 +38,7 @@ public class SolicitudVer extends javax.swing.JFrame {
         } catch(Exception e){
             System.out.println(e);
         } finally{
-            bd.cerrar();
+            bd.close();
         }
         
     }
@@ -168,11 +169,12 @@ public class SolicitudVer extends javax.swing.JFrame {
                 if(Character.isDigit(k)){
                     JOptionPane.showMessageDialog(null, "Solo Puede introducir Letras", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } else{
+                try{
                 ResultSet rs = bd.Vertodo("select * from Solicitud where Nombre_cliente like'"+nombre+"%'");
                 DefaultTableModel model = new DefaultTableModel();
                 jtTabla.setModel(model);
                 model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Nombre Del Cliente", "Cedula", "Monto Solicitado", "Correo Eletronico", "Garante", "Fecha de Registro", "Codigo del epleado", "Estatus"});
-                try{
+                
 
                     while(rs.next()){
 
@@ -183,7 +185,7 @@ public class SolicitudVer extends javax.swing.JFrame {
                 } catch(Exception e){
 
                 } finally{
-                    bd.cerrar();
+                    bd.close();
                 }
                }
             }
@@ -211,7 +213,7 @@ public class SolicitudVer extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
 
                 } finally{
-                    bd.cerrar();
+                    bd.close();
                 }
             }
         }
@@ -219,12 +221,13 @@ public class SolicitudVer extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtBuscarActionPerformed
 
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
-
+        try{
+        
         ResultSet rs = bd.Vertodo("select * from Solicitud");
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
         model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Nombre Del Cliente", "Cedula", "Monto Solicitado", "Correo Eletronico", "Garante", "Fecha de Registro", "Codigo del epleado", "Estatus"});
-        try{
+        
 
             while(rs.next()){
 
@@ -235,7 +238,7 @@ public class SolicitudVer extends javax.swing.JFrame {
         } catch(Exception e){
 
         } finally{
-            bd.cerrar();
+            bd.close();
         }
     }//GEN-LAST:event_jbtMostrarActionPerformed
 
@@ -289,5 +292,5 @@ public class SolicitudVer extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-    Conectar bd = new Conectar();
+    Conectar_Oracle bd = new Conectar_Oracle();
 }

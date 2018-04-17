@@ -2,7 +2,7 @@ package Login;
 
 import Menu.Menu_ADM;
 import Menu.Menu_USU;
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import oracle.jdbc.OracleStatement;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -320,11 +321,6 @@ public class Login extends javax.swing.JFrame implements Runnable{
     //Boton para salir del sistema
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        try {
-            cn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
         System.exit(0);
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -333,16 +329,16 @@ public class Login extends javax.swing.JFrame implements Runnable{
     void acceder(String usu, String con){
       
         String cap = "";
-        String sql = "select * from Empleado where usuario='"+usu+"' && contrasena='"+con+"'";
+        String sql = "select * from Empleado where Usuario_emp='"+usu+"' and Contrasena_emp='"+con+"'";
         try {
+            
             Statement st = cn.createStatement();
             ResultSet rs =  st.executeQuery(sql);
-            while(rs.next()){
+            if(rs.next()){
                 
-                cap = rs.getString("categoria");
-                usua = rs.getString("usuario");
+                cap = rs.getString("Categoria_emp");
+                usua = rs.getString("Usuario_emp");
             }
-            
             if(cap.equals("adm") || cap.equals("ADM")){
                
                 cont=-1;
@@ -355,7 +351,7 @@ public class Login extends javax.swing.JFrame implements Runnable{
                 activar();
                 
             } else {
-                if(cap.equals("usu") || cap.equals("usu")){
+                if(cap.equals("usu") || cap.equals("USU")){
                 
                     cont=-1;
                     jpCarga.setValue(0);
@@ -375,7 +371,7 @@ public class Login extends javax.swing.JFrame implements Runnable{
             }
             cn.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error" + ex);
+            JOptionPane.showMessageDialog(null, "Error1: " + ex);
         }
         
     }
@@ -384,17 +380,14 @@ public class Login extends javax.swing.JFrame implements Runnable{
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
         this.usu = jtxtUsu.getText();
-        this.con = new String (jpCon.getPassword());
+        this.con = String.valueOf(jpCon.getPassword());
         
-        /*try{
-        cn = cc.Conectar();
+        try{
+        cn = cc.connect();
         acceder(usu, con);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos" + e);
-        }*/
-        Menu_USU mp = new Menu_USU();
-                mp.jlUsu.setText(usua);
-                mp.show();
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -402,15 +395,15 @@ public class Login extends javax.swing.JFrame implements Runnable{
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
         
         String usu = jtxtUsu.getText();
-        String con = new String (jpCon.getPassword());
+        String con = String.valueOf(jpCon.getPassword());
         
         try{
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            cn = cc.Conectar();
+            cn = cc.connect();
             acceder(usu, con);
         }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos");
+            JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos" + e);
         }
         
     }//GEN-LAST:event_jButton1KeyPressed
@@ -418,15 +411,15 @@ public class Login extends javax.swing.JFrame implements Runnable{
     //Funcion para cuando le dan enter en el texfield de la contraseña entre al sistema
     private void jpConKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpConKeyPressed
         String usu = jtxtUsu.getText();
-        String con = new String (jpCon.getPassword());
+        String con = String.valueOf(jpCon.getPassword());
         
         try{
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            cn = cc.Conectar();
+            cn = cc.connect();
             acceder(usu, con);
         }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos");
+            JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrectos" + e);
         }
     }//GEN-LAST:event_jpConKeyPressed
 
@@ -488,7 +481,7 @@ public class Login extends javax.swing.JFrame implements Runnable{
     private javax.swing.JTextField jtxtUsu;
     // End of variables declaration//GEN-END:variables
 
-    Conectar cc = new Conectar();
-    Connection cn = cc.Conectar();
+    Conectar_Oracle cc = new Conectar_Oracle();
+    Connection cn;
     
 }

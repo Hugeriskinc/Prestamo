@@ -5,7 +5,7 @@
  */
 package Garante;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -243,7 +243,7 @@ public class Garante extends javax.swing.JFrame {
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } finally{
-                    cc.cerrar();
+                    cc.close();
                 }
                 this.hide();
             }
@@ -319,6 +319,6 @@ public class Garante extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtTelefono1;
     // End of variables declaration//GEN-END:variables
 
-    Conectar cc = new Conectar();
+    Conectar_Oracle cc = new Conectar_Oracle();
     
 }

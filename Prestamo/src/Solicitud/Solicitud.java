@@ -5,7 +5,7 @@
  */
 package Solicitud;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +30,9 @@ public class Solicitud extends javax.swing.JFrame {
         
         int a1=0, b1=0;
         
-        ResultSet rs = cc.Vertodo("select * from solicitud");
         try{
+        ResultSet rs = cc.Vertodo("select * from solicitud");
+        
             
             while(rs.next()){
             a1 = rs.getInt("Id_solicitud");
@@ -43,7 +44,7 @@ public class Solicitud extends javax.swing.JFrame {
         } catch(Exception e){
             
         } finally{
-            cc.cerrar();
+            cc.close();
         }
         
         jlCodigo.setText(String.valueOf(a));
@@ -247,7 +248,7 @@ public class Solicitud extends javax.swing.JFrame {
                     }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo" + e, JOptionPane.INFORMATION_MESSAGE);
                     } finally{
-                        cc.cerrar();
+                        cc.close();
                     } 
       
                 } catch(Exception e){
@@ -324,6 +325,6 @@ public class Solicitud extends javax.swing.JFrame {
     public static javax.swing.JTextField jtxtNombre;
     // End of variables declaration//GEN-END:variables
 
-    Conectar cc = new Conectar();
+    Conectar_Oracle cc = new Conectar_Oracle();
     
 }

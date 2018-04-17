@@ -5,7 +5,7 @@
  */
 package Prestamo;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
@@ -23,11 +23,13 @@ public class Consultarp extends javax.swing.JFrame {
      */
     public Consultarp() {
         initComponents();
+        
+        try{
         ResultSet rs = bd.Vertodo("select * from Prestamo");
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
         model.setColumnIdentifiers(new Object[]{"Codigo del prestamo","Monto de la deuda","Monto restante", "Monto total", "Itebis", "Ganancias", "Codigo del cliente", "Fecha del prestamo"});
-        try{
+        
             
             while(rs.next()){
                 
@@ -38,7 +40,7 @@ public class Consultarp extends javax.swing.JFrame {
         } catch(Exception e){
             System.out.println(e);
         } finally{
-            bd.cerrar();
+            bd.close();
         }
     }
 
@@ -171,11 +173,12 @@ public class Consultarp extends javax.swing.JFrame {
                 if(Character.isLetter(k)){
                     JOptionPane.showMessageDialog(null, "Solo Puede introducir Numero", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } else{
+                try{
                 ResultSet rs = bd.Vertodo("select * from Prestamo where Monto_deuda like'"+nombre+"%'");
                 DefaultTableModel model = new DefaultTableModel();
                 jtTabla.setModel(model);
                 model.setColumnIdentifiers(new Object[]{"Codigo del prestamo","Monto de la deuda","Monto restante", "Monto total", "Itebis", "Ganancias", "Codigo del cliente", "Fecha del prestamo"});
-                try{
+                
 
                     while(rs.next()){
 
@@ -186,7 +189,7 @@ public class Consultarp extends javax.swing.JFrame {
                 } catch(Exception e){
 
                 } finally{
-                    bd.cerrar();
+                    bd.close();
                 }
             }
             }
@@ -217,7 +220,7 @@ public class Consultarp extends javax.swing.JFrame {
                     //JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
 
                 } finally{
-                    bd.cerrar();
+                    bd.close();
                 }
 
             }
@@ -227,11 +230,12 @@ public class Consultarp extends javax.swing.JFrame {
 
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
 
+        try{
         ResultSet rs = bd.Vertodo("select * from Prestamo");
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
         model.setColumnIdentifiers(new Object[]{"Codigo del prestamo","Monto de la deuda","Monto restante", "Monto total", "Itebis", "Ganancias", "Codigo del cliente", "Fecha del prestamo"});
-        try{
+        
 
             while(rs.next()){
 
@@ -242,7 +246,7 @@ public class Consultarp extends javax.swing.JFrame {
         } catch(Exception e){
 
         } finally{
-            bd.cerrar();
+            bd.close();
         }
     }//GEN-LAST:event_jbtMostrarActionPerformed
 
@@ -288,7 +292,7 @@ public class Consultarp extends javax.swing.JFrame {
         });
     }
     
-    Conectar bd = new Conectar();
+    Conectar_Oracle bd = new Conectar_Oracle();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

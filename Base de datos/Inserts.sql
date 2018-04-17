@@ -1,5 +1,5 @@
-insert into Empleado(Id_Empleado, Nombre, Apellido, Cedula, Fecha_naci, Sexo, Direccion, Telefono, Usuario, Contrasena, Fecha_ini, Categoria, Id_Referencia)
-values(1, 'Oscar', 'Ortiz', '402-2387933-5', '21/01/1995', 'm', 'Jaragua #48', '8293510616', 'Oscar', 'Oscar', '05/09/25', 'ADM', 1);
+insert into Empleado(Id_Empleado, Nombre_emp, Apellido_emp, Cedula_emp, Sexo_emp, Direccion_emp, Telefono_emp, Celular_emp, Usuario_emp, Contrasena_emp, Fecha_ini_emp, Categoria_emp)
+values(1, 'Oscar', 'Ortiz', '402-2387933-5', 'm', 'Jaragua #48', '8293510616', '829-351-0616', 'Oscar', 'Oscar3031', '05/09/25', 'ADM');
 
 insert into Referencia(id_referencia, nombre, apellido, cedula, telefono)
 values(1, 'Jose', 'Perez', '048-0988765-8', '809-525-0967');

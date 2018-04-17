@@ -5,7 +5,7 @@
  */
 package Ingresos;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import Menu.Menu_ADM;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -25,11 +25,12 @@ public class Ingresosver extends javax.swing.JFrame {
     public Ingresosver() {
         initComponents();
         
+        try{
         ResultSet rs = bd.Vertodo("select * from Ingreso");
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
         model.setColumnIdentifiers(new Object[]{"Codigo del Ingreso","Codigo del Prestamo","Monto"});
-                        try{
+                        
 
             while(rs.next()){
 
@@ -40,7 +41,7 @@ public class Ingresosver extends javax.swing.JFrame {
         } catch(Exception e){
 
         } finally{
-            bd.cerrar();
+            bd.close();
         }
         
     }
@@ -169,11 +170,12 @@ public class Ingresosver extends javax.swing.JFrame {
                     if(Character.isLetter(k)){
                         JOptionPane.showMessageDialog(null, "Solo Puede introducir Numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                     } else{
+                        try{
                         ResultSet rs = bd.Vertodo("select * from Ingreso where id_ingreso = "+nombre+"");
                         DefaultTableModel model = new DefaultTableModel();
                         jtTabla.setModel(model);
                         model.setColumnIdentifiers(new Object[]{"Codigo del Ingreso","Codigo del Prestamo","Monto"});
-                        try{
+                        
 
                             while(rs.next()){
 
@@ -184,7 +186,7 @@ public class Ingresosver extends javax.swing.JFrame {
                         } catch(Exception e){
 
                         } finally{
-                            bd.cerrar();
+                            bd.close();
                         }
                     }
                 }
@@ -213,7 +215,7 @@ public class Ingresosver extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
 
                     } finally{
-                        bd.cerrar();
+                        bd.close();
                     }
 
                 }
@@ -223,12 +225,12 @@ public class Ingresosver extends javax.swing.JFrame {
 
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
 
-        ResultSet rs = bd.Vertodo("select * from Ingreso");
+        
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
         model.setColumnIdentifiers(new Object[]{"Codigo del Ingreso","Codigo del Prestamo","Monto"});
-                        try{
-
+            try{
+            ResultSet rs = bd.Vertodo("select * from Ingreso");
             while(rs.next()){
 
                 model.addRow(new Object[]{rs.getInt("id_ingreso"), rs.getInt("Id_prestamo"),rs.getString("Monto")});
@@ -238,7 +240,7 @@ public class Ingresosver extends javax.swing.JFrame {
         } catch(Exception e){
 
         } finally{
-            bd.cerrar();
+            bd.close();
         }
     }//GEN-LAST:event_jbtMostrarActionPerformed
 
@@ -277,7 +279,7 @@ public class Ingresosver extends javax.swing.JFrame {
         });
     }
     
-     Conectar bd = new Conectar();
+     Conectar_Oracle bd = new Conectar_Oracle();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

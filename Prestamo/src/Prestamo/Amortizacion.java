@@ -5,7 +5,7 @@
  */
 package Prestamo;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import java.io.Console;
 import java.sql.ResultSet;
 import java.text.NumberFormat;
@@ -31,9 +31,10 @@ public class Amortizacion extends javax.swing.JFrame {
         initComponents();
         
         int a1=0;
+        try{
         ResultSet rs = cc.Vertodo("select * from Amortizacion");
         
-        try{
+        
             
             while(rs.next()){
             a1 = rs.getInt("Id_amortizacion");
@@ -45,7 +46,7 @@ public class Amortizacion extends javax.swing.JFrame {
         } catch(Exception e){
             
         } finally{
-            cc.cerrar();
+            cc.close();
         }
         
         jLabel9.setText(fecha());
@@ -350,7 +351,7 @@ public class Amortizacion extends javax.swing.JFrame {
             }catch(Exception e){
 
             } finally{
-                cc.cerrar();
+                cc.close();
             }
         }
         
@@ -418,6 +419,6 @@ public class Amortizacion extends javax.swing.JFrame {
     private javax.swing.JTextField jtxtPlazo;
     // End of variables declaration//GEN-END:variables
 
-    Conectar cc = new Conectar();
+    Conectar_Oracle cc = new Conectar_Oracle();
 
 }

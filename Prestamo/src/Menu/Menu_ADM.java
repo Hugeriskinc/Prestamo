@@ -5,14 +5,12 @@
  */
 package Menu;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import Cliente.Agregarc;
 import Cliente.Consultarc;
 import static Cliente.Consultarc.jLabel3;
 import Empleado.Agregare;
 import Empleado.Consultare;
-import Encorre.Enviar;
-import Encorre.Enviar1;
 import Login.Login;
 import static Login.Login.fecha;
 import Prestamo.Agregar;
@@ -53,7 +51,7 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         hilo=new Thread(this);
         hilo.start();
         setVisible(true);
-        ResultSet rs = bd.Vertodo("select * from Solicitud");
+        /*ResultSet rs = bd.Vertodo("select * from Solicitud");
         String destino1 = null;
         try{
             
@@ -79,8 +77,8 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         } catch(Exception e){
             
         } finally{
-            bd.cerrar();
-        }
+            bd.close();
+        }*/
         
         
         
@@ -552,6 +550,6 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
     public static javax.swing.JLabel jlUsu;
     // End of variables declaration//GEN-END:variables
 
-    Conectar bd = new Conectar();
+    Conectar_Oracle bd = new Conectar_Oracle();
     
 }

@@ -5,7 +5,7 @@
  */
 package Prestamo;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import java.sql.ResultSet;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -31,14 +31,15 @@ public class Agregar extends javax.swing.JFrame {
         
         int a1=0, b1=0;
         
+        try{
         ResultSet rs = cc.Vertodo("select * from Clientes");
         DefaultTableModel model = new DefaultTableModel();
         jtConsulta.setModel(model);
         model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono", "Correo Electronico"});
              
-        ResultSet rs1 = cc.Vertodo("select * from Prestamo");
+        ResultSet rs1 = cc.Vertodo("select * from Prestamo_concedido");
         //ResultSet rs2 = cc.Vertodo("select * from tipo_Garante");
-        try{
+        
             
             while(rs1.next()){
             a1 = rs1.getInt("Id_prestamo");
@@ -61,7 +62,7 @@ public class Agregar extends javax.swing.JFrame {
         } catch(Exception e){
             
         } finally{
-            cc.cerrar();
+            cc.close();
         }
         
         jLabel3.setText(String.valueOf(this.a));
@@ -355,14 +356,14 @@ public class Agregar extends javax.swing.JFrame {
         }else{
             try{
                 
-                cc.Insert("insert into Prestamo(Id_prestamo, Monto_deuda, Monto_restante, Monto_total, Itebis, Ganancias, Id_cliente, Fecha_prestamo, Estatus)"
+                cc.Insert("insert into Prestamo_concedido(Id_prestamo, Monto_deuda, Monto_restante, Monto_total, Itebis, Ganancias, Id_cliente, Fecha_prestamo, Estatus)"
                     + "values ("+Codigo+", "+Nombre+", "+Apellido+", "+Cedula+", "+Direccion+", "+Telefono+", "+Sexo+", '"+fecha1+"', '"+Este+"')");
                 this.n = 1;
                     
             }catch(Exception e){
 
             } finally{
-                cc.cerrar();
+                cc.close();
             }
         }
 
@@ -383,11 +384,12 @@ public class Agregar extends javax.swing.JFrame {
             if(nombre.equals("")){
                 JOptionPane.showMessageDialog(null, "No a escrito el nombre a buscar");
             } else{
+                try{
                 ResultSet rs = cc.Vertodo("select * from Clientes where Nombre like'"+nombre+"%'");
                 DefaultTableModel model = new DefaultTableModel();
                 jtConsulta.setModel(model);
                 model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono"});
-                try{
+                
 
                     while(rs.next()){
 
@@ -398,7 +400,7 @@ public class Agregar extends javax.swing.JFrame {
                 } catch(Exception e){
 
                 } finally{
-                    cc.cerrar();
+                    cc.close();
                 }
             }
         }else{
@@ -426,7 +428,7 @@ public class Agregar extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
 
                 } finally{
-                    cc.cerrar();
+                    cc.close();
                 }
 
             }
@@ -435,11 +437,12 @@ public class Agregar extends javax.swing.JFrame {
 
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
 
+        try{
         ResultSet rs = cc.Vertodo("select * from Clientes");
         DefaultTableModel model = new DefaultTableModel();
         jtConsulta.setModel(model);
         model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono"});
-        try{
+        
 
             while(rs.next()){
 
@@ -450,7 +453,7 @@ public class Agregar extends javax.swing.JFrame {
         } catch(Exception e){
 
         } finally{
-            cc.cerrar();
+            cc.close();
         }
     }//GEN-LAST:event_jbtMostrarActionPerformed
 
@@ -558,6 +561,6 @@ public class Agregar extends javax.swing.JFrame {
     public static javax.swing.JTextField jtxtBuscar1;
     // End of variables declaration//GEN-END:variables
 
-    Conectar cc = new Conectar();
+    Conectar_Oracle cc = new Conectar_Oracle();
 
 }

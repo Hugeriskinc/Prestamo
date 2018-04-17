@@ -5,10 +5,9 @@
  */
 package Menu;
 
-import Base_datos.Conectar;
+import Base_datos.Conectar_Oracle;
 import Cliente.Agregarc;
 import Cliente.Consultarc;
-import Encorre.Enviar;
 import Ingresos.Ingresosver;
 import Login.Login;
 import static Menu.Menu_ADM.fecha;
@@ -49,7 +48,7 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
         hilo.start();
         setVisible(true);
         
-        ResultSet rs = bd.Vertodo("select * from Solicitud");
+        /*ResultSet rs = bd.Vertodo("select * from Solicitud");
         String destino1 = null;
         try{
             
@@ -72,7 +71,7 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
         if(destino1.equals("Declinado")){
         Enviar en  = new Enviar();
         en.Enviar();
-        }
+        }*/
         
     }
     
@@ -470,6 +469,6 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
     public static javax.swing.JLabel jlUsu;
     // End of variables declaration//GEN-END:variables
 
-    Conectar bd = new Conectar();
+    Conectar_Oracle bd = new Conectar_Oracle();
     
 }
