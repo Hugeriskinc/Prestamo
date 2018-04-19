@@ -23,15 +23,15 @@ public class SolicitudVer extends javax.swing.JFrame {
         initComponents();
         
         try{
-        ResultSet rs = bd.Vertodo("select * from Solicitud");
+        ResultSet rs = bd.Vertodo("select * from Solicitud_prestamo");
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Nombre Del Cliente", "Cedula", "Monto Solicitado", "Correo Eletronico", "Garante", "Fecha de Registro", "Codigo del epleado", "Estatus"});
+        model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Codigo del Cliente", "Codigo Garantia Solidaria", "Codigo GarantiaPrendaria", "Codigo Garantia Hipotecaria", "Monto", "Plazo", "Fecha de la solicitud", "Tipo Prestamo"});
                 
             
             while(rs.next()){
                 
-                model.addRow(new Object[]{rs.getInt("Id_Solicitud"), rs.getString("Nombre_cliente"), rs.getString("Cedula"), rs.getString("Monto_prestamo"), rs.getString("Correo_elec"), rs.getString("Tipo_garante"), rs.getString("Fecha_re"), rs.getInt("Id_empleado"), rs.getString("Estatus")});
+                model.addRow(new Object[]{rs.getInt("Id_Solicitud"), rs.getInt("ID_Cliente"), rs.getInt("ID_GaranSolid"), rs.getInt("ID_GaranPren"), rs.getInt("ID_GaranHipo"), rs.getInt("Monto"), rs.getString("Plazo"), rs.getString("Fecha_solicitud"), rs.getString("Tipo_Prestamo")});
 
             }
             
@@ -85,7 +85,7 @@ public class SolicitudVer extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jtTabla);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 171, 819, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 171, 1090, -1));
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
@@ -95,7 +95,7 @@ public class SolicitudVer extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 620, 140, 50));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 610, 140, 50));
         jPanel1.add(jtxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 109, 210, -1));
 
         jbtBuscar.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -109,13 +109,13 @@ public class SolicitudVer extends javax.swing.JFrame {
         jPanel1.add(jbtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 150, 60));
 
         jrbNombre.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jrbNombre.setText("Nombre");
-        jPanel1.add(jrbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(695, 69, -1, -1));
+        jrbNombre.setText("Codigo Cliente");
+        jPanel1.add(jrbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 70, 180, -1));
 
         jrbCodigo.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jrbCodigo.setSelected(true);
-        jrbCodigo.setText("Codigo");
-        jPanel1.add(jrbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(695, 29, -1, -1));
+        jrbCodigo.setText("Codigo Solicitud");
+        jPanel1.add(jrbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, -1, -1));
 
         jbtMostrar.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jbtMostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mostrar.png"))); // NOI18N
@@ -128,13 +128,15 @@ public class SolicitudVer extends javax.swing.JFrame {
         jPanel1.add(jbtMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 210, 60));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 680));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1120, 680));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,19 +168,19 @@ public class SolicitudVer extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No a escrito el nombre a buscar", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
             } else{
                  char k = nombre.charAt(0);
-                if(Character.isDigit(k)){
-                    JOptionPane.showMessageDialog(null, "Solo Puede introducir Letras", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
+                if(Character.isLetter(k)){
+                    JOptionPane.showMessageDialog(null, "Solo Puede introducir Numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } else{
                 try{
-                ResultSet rs = bd.Vertodo("select * from Solicitud where Nombre_cliente like'"+nombre+"%'");
+                ResultSet rs = bd.Vertodo("select * from Solicitud_prestamo where id_cliente = "+nombre+"");
                 DefaultTableModel model = new DefaultTableModel();
                 jtTabla.setModel(model);
-                model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Nombre Del Cliente", "Cedula", "Monto Solicitado", "Correo Eletronico", "Garante", "Fecha de Registro", "Codigo del epleado", "Estatus"});
-                
+                model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Codigo del Cliente", "Codigo Garantia Solidaria", "Codigo GarantiaPrendaria", "Codigo Garantia Hipotecaria", "Monto", "Plazo", "Fecha de la solicitud", "Tipo Prestamo"});
+         
 
                     while(rs.next()){
 
-                        model.addRow(new Object[]{rs.getInt("Id_Solicitud"), rs.getString("Nombre_cliente"), rs.getString("Cedula"), rs.getString("Monto_prestamo"), rs.getString("Correo_elec"), rs.getString("Tipo_garante"), rs.getString("Fecha_re"), rs.getInt("Id_empleado"), rs.getString("Estatus")});
+                        model.addRow(new Object[]{rs.getInt("Id_Solicitud"), rs.getInt("ID_Cliente"), rs.getInt("ID_GaranSolid"), rs.getInt("ID_GaranPren"), rs.getInt("ID_GaranHipo"), rs.getInt("Monto"), rs.getString("Plazo"), rs.getString("Fecha_solicitud"), rs.getString("Tipo_Prestamo")});
 
                     }
 
@@ -196,14 +198,14 @@ public class SolicitudVer extends javax.swing.JFrame {
                 try{
                     int ho = Integer.parseInt(nombre);
                     if(ho >= 0){
-                        ResultSet rs = bd.Vertodo("select * from Solicitud where Id_Solicitud = "+nombre+"");
+                        ResultSet rs = bd.Vertodo("select * from Solicitud_prestamo where Id_Solicitud = "+nombre+"");
                         DefaultTableModel model = new DefaultTableModel();
                         jtTabla.setModel(model);
-                        model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Nombre Del Cliente", "Cedula", "Monto Solicitado", "Correo Eletronico", "Garante", "Fecha de Registro", "Codigo del epleado", "Estatus"});
-                
+                        model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Codigo del Cliente", "Codigo Garantia Solidaria", "Codigo GarantiaPrendaria", "Codigo Garantia Hipotecaria", "Monto", "Plazo", "Fecha de la solicitud", "Tipo Prestamo"});
+         
                         while(rs.next()){
 
-                            model.addRow(new Object[]{rs.getInt("Id_Solicitud"), rs.getString("Nombre_cliente"), rs.getString("Cedula"), rs.getString("Monto_prestamo"), rs.getString("Correo_elec"), rs.getString("Tipo_garante"), rs.getString("Fecha_re"), rs.getInt("Id_empleado"), rs.getString("Estatus")});
+                            model.addRow(new Object[]{rs.getInt("Id_Solicitud"), rs.getInt("ID_Cliente"), rs.getInt("ID_GaranSolid"), rs.getInt("ID_GaranPren"), rs.getInt("ID_GaranHipo"), rs.getInt("Monto"), rs.getString("Plazo"), rs.getString("Fecha_solicitud"), rs.getString("Tipo_Prestamo")});
 
                         }
                     }
@@ -223,15 +225,14 @@ public class SolicitudVer extends javax.swing.JFrame {
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
         try{
         
-        ResultSet rs = bd.Vertodo("select * from Solicitud");
+        ResultSet rs = bd.Vertodo("select * from Solicitud_prestamo");
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Nombre Del Cliente", "Cedula", "Monto Solicitado", "Correo Eletronico", "Garante", "Fecha de Registro", "Codigo del epleado", "Estatus"});
-        
-
+        model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud", "Codigo del Cliente", "Codigo Garantia Solidaria", "Codigo GarantiaPrendaria", "Codigo Garantia Hipotecaria", "Monto", "Plazo", "Fecha de la solicitud", "Tipo Prestamo"});
+         
             while(rs.next()){
 
-                model.addRow(new Object[]{rs.getInt("Id_Solicitud"), rs.getString("Nombre_cliente"), rs.getString("Cedula"), rs.getString("Monto_prestamo"), rs.getString("Correo_elec"), rs.getString("Tipo_garante"), rs.getString("Fecha_re"), rs.getInt("Id_empleado"), rs.getString("Estatus")});
+                model.addRow(new Object[]{rs.getInt("Id_Solicitud"), rs.getInt("ID_Cliente"), rs.getInt("ID_GaranSolid"), rs.getInt("ID_GaranPren"), rs.getInt("ID_GaranHipo"), rs.getInt("Monto"), rs.getString("Plazo"), rs.getString("Fecha_solicitud"), rs.getString("Tipo_Prestamo")});
 
             }
 

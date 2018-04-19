@@ -6,10 +6,17 @@
 package Prestamo;
 
 import Base_datos.Conectar_Oracle;
+import Empleado.Agregare;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,13 +36,18 @@ public class Agregar extends javax.swing.JFrame {
     public Agregar() {
         initComponents();
         
+        Date fecha = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
+        String fecha1 = "";
+        fecha1 = formato.format(fecha);
+        jLabel10.setText(fecha1);
         int a1=0, b1=0;
         
         try{
-        ResultSet rs = cc.Vertodo("select * from Clientes");
+        ResultSet rs = cc.Vertodo("select * from Solicitud_prestamo");
         DefaultTableModel model = new DefaultTableModel();
         jtConsulta.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono", "Correo Electronico"});
+        model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud","Codigo Del Cliente", "Codigo de la Garantia Solidaria", "Codigo de la Garantia Prendaria", "Codigo de la Garantia Hipotecaria", "Monto","Plazo", "Fecha de la solicitud","Tipo de Prestamo"});
              
         ResultSet rs1 = cc.Vertodo("select * from Prestamo_concedido");
         //ResultSet rs2 = cc.Vertodo("select * from tipo_Garante");
@@ -46,19 +58,13 @@ public class Agregar extends javax.swing.JFrame {
                 
             }
             
-           /* while(rs2.next()){
-            b1 = rs2.getInt("Id_garante");
-                
-            }*/
-            
             while(rs.next()){
 
-                 model.addRow(new Object[]{rs.getInt("id_cliente"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getString("Cedula"), rs.getString("Fecha_naci"), rs.getString("Sexo"), rs.getString("Direccion"), rs.getString("Telefono"), rs.getString("Correo_elec")});
+                 model.addRow(new Object[]{rs.getInt("ID_solicitud"), rs.getInt("ID_Cliente"), rs.getInt("ID_GaranSolid"), rs.getInt("ID_GaranPren"), rs.getInt("ID_GaranHipo"), rs.getInt("Monto"), rs.getString("Plazo"), rs.getString("Fecha_solicitud"), rs.getString("Tipo_Prestamo")});
                 
             }
             
             a = a1 + 1;
-            b = b1 + 1;
         } catch(Exception e){
             
         } finally{
@@ -67,6 +73,33 @@ public class Agregar extends javax.swing.JFrame {
         
         jLabel3.setText(String.valueOf(this.a));
         
+    }
+    
+    public void Buscar(){
+            
+            int a1=0;
+
+            
+            
+        try {
+            ResultSet rs1;
+                try {
+                    rs1 = cc.Vertodo("select * from Prestamo_concedido");
+                    
+                    while(rs1.next()){
+                        a1 = rs1.getInt("Id_prestamo");
+                
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Agregare.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        } catch (SQLException ex) {
+        }
+        
+        a = a1 + 1;
+        jLabel3.setText(String.valueOf(a));
+    
     }
     
     //Metodo par ala fecha
@@ -110,18 +143,16 @@ public class Agregar extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        Montoade = new javax.swing.JTextField();
-        Montores = new javax.swing.JTextField();
-        Montotol = new javax.swing.JTextField();
-        Itebis = new javax.swing.JTextField();
-        Ganan = new javax.swing.JTextField();
+        Tasa = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jlCliente = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
 
         jdBuscar.setTitle("Buscar Garante");
@@ -130,7 +161,7 @@ public class Agregar extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel21.setText("Consultar Clientes");
+        jLabel21.setText("Consultar Solicitud");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
 
         jtConsulta.setModel(new javax.swing.table.DefaultTableModel(
@@ -160,11 +191,16 @@ public class Agregar extends javax.swing.JFrame {
 
         jrbCodigo.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jrbCodigo.setSelected(true);
-        jrbCodigo.setText("Codigo");
+        jrbCodigo.setText("Codigo De La Solicitud");
+        jrbCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbCodigoActionPerformed(evt);
+            }
+        });
         jPanel3.add(jrbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 11, -1, -1));
 
         jrbNombre.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jrbNombre.setText("Nombre");
+        jrbNombre.setText("Codigo Del Cliente");
         jPanel3.add(jrbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 51, -1, -1));
 
         jbtBuscar.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -205,7 +241,7 @@ public class Agregar extends javax.swing.JFrame {
         jdBuscar.getContentPane().setLayout(jdBuscarLayout);
         jdBuscarLayout.setHorizontalGroup(
             jdBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jdBuscarLayout.setVerticalGroup(
             jdBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,53 +258,41 @@ public class Agregar extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel2.setText("Codigo del prestamo");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, 34, 25));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 34, 25));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel4.setText("Monte adeudado:");
+        jLabel4.setText("Solicitante:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 95, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel5.setText("Monto restante:");
+        jLabel5.setText("Tasa Interes:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 141, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel6.setText("Monto total:");
+        jLabel6.setText("Estado:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 203, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel7.setText("Itebis:");
+        jLabel7.setText("Categoria:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 249, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel8.setText("Ganancias:");
+        jLabel8.setText("Fecha:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 295, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel9.setText("Codigo del cliente:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 341, -1, -1));
-        jPanel1.add(Montoade, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 103, 203, -1));
-        jPanel1.add(Montores, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 149, 203, -1));
-        jPanel1.add(Montotol, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 211, 203, -1));
-        jPanel1.add(Itebis, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 257, 203, -1));
-        jPanel1.add(Ganan, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 303, 203, -1));
+        jPanel1.add(Tasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 149, 203, -1));
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Calcular.png"))); // NOI18N
-        jButton1.setText("Calcular");
+        jButton1.setText("Amortizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel10.setText("Amortizacion");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
@@ -278,7 +302,7 @@ public class Agregar extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 110, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 110, 30));
         jPanel1.add(jlCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 150, 30));
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -289,15 +313,28 @@ public class Agregar extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, 120, 40));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 120, 40));
 
         jButton5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
         jButton5.setText("Volver");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 290, 120, 40));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 120, 40));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "Saldado", "Atrasado" }));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 200, 30));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 294, 190, 30));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 100, 210, 30));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Encurso", "Saldado", "Inactivo" }));
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 200, 30));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 410));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 430));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -315,9 +352,35 @@ public class Agregar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+        int a1=0;
+        String a2 = "";
+        
         if(n!=0){
+            
+            ResultSet rs1, rs2;
+                try {
+                    rs1 = cc.Vertodo("select * from Prestamo_concedido");
+                    
+                    
+                try {
+                    while(rs1.next()){
+                        a1 = rs1.getInt("Id_prestamo");
+                        
+                    }
+                    rs1 = cc.Vertodo("select * from Prestamo_concedido where Id_prestamo = "+a1+"");
+                    while(rs1.next()){
+                        a2 = rs1.getString("Tasa_Interes");
+                    }
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(Agregar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Agregare.class.getName()).log(Level.SEVERE, null, ex);
+                }
             Amortizacion amor = new Amortizacion();
-            amor.coemple = a;
+            amor.coemple = a1;
+            amor.jlInteres.setText(a2);
             amor.show();
             n=0;
         } else {
@@ -336,37 +399,74 @@ public class Agregar extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         String Codigo = String.valueOf(a);
-        String Nombre = Montoade.getText();
-        String Apellido = Montores.getText();
-        String Cedula = Montotol.getText();
-        String Direccion = Itebis.getText();
-        String Telefono = Ganan.getText();
-        String Sexo = this.Codi;
-        String codigo_emple = "1";
-        String Este = "Pendiente";
+        String solicitud = this.Codi;
+        String tasa_interes = Tasa.getText();
+        String Este = "";
+        String categoria = "";
         Date fecha = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("YYYY/MM/dd");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/YYYY");
         String fecha1 = "";
         fecha1 = formato.format(fecha);
+        jLabel10.setText(fecha1);
+        String sql = "insert into Prestamo_concedido values(?, ?, ?, ?, ?, ?)";
+        Connection cn = null;
+        PreparedStatement insert;
+        java.util.Date date = new java.util.Date();
+        long t = date.getTime();
+        java.sql.Date sqlDate = new java.sql.Date(t);
         
-        if(Nombre.equals("") || Apellido.equals("") || Cedula.equals("") || Sexo.equals("") || Direccion.equals("") || Telefono.equals("")){
-
-            JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
-
-        }else{
-            try{
-                
-                cc.Insert("insert into Prestamo_concedido(Id_prestamo, Monto_deuda, Monto_restante, Monto_total, Itebis, Ganancias, Id_cliente, Fecha_prestamo, Estatus)"
-                    + "values ("+Codigo+", "+Nombre+", "+Apellido+", "+Cedula+", "+Direccion+", "+Telefono+", "+Sexo+", '"+fecha1+"', '"+Este+"')");
-                this.n = 1;
-                    
-            }catch(Exception e){
-
-            } finally{
-                cc.close();
-            }
+        if(jComboBox1.getSelectedIndex() == 0){
+            Este = "Pendiente";
+        } else if(jComboBox1.getSelectedIndex() == 1){
+            Este = "Saldado";
+        } else {
+            Este = "Atrasado";
         }
+        
+        if(jComboBox2.getSelectedIndex() == 0){
+            categoria = "Encurso";
+        } else if(jComboBox2.getSelectedIndex() == 1){
+            categoria = "Saldado";
+        } else {
+            categoria = "Inactivo";
+        }
+        
+        try{
+            if(solicitud.equals("") || tasa_interes.equals("") ||  Este.equals("") || categoria.equals("")){
 
+                JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+
+            }else{
+                try{
+                    cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ADM","Administrador");
+                    insert = cn.prepareStatement(sql);
+
+
+                        insert.setInt(1, Integer.parseInt(Codigo));
+                        insert.setInt(2, Integer.parseInt(solicitud));
+                        insert.setInt(3, Integer.parseInt(tasa_interes));
+                        insert.setString(4, Este);
+                        insert.setString(5, categoria);
+                        insert.setDate(6, sqlDate);
+                        insert.executeUpdate();
+                        
+                        jLabel9.setText("");
+                        Tasa.setText("");
+                        Buscar();
+                        
+                    JOptionPane.showMessageDialog(null, "Se Agrego El Registro ", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+                    this.n = 1;
+
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Faltan datos por introducir! " + e, "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+                } finally{
+                    cc.close();
+                }
+            }
+        } catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -385,20 +485,22 @@ public class Agregar extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No a escrito el nombre a buscar");
             } else{
                 try{
-                ResultSet rs = cc.Vertodo("select * from Clientes where Nombre like'"+nombre+"%'");
+                int ho = Integer.parseInt(nombre);
+                if(ho >= 0){
+                ResultSet rs = cc.Vertodo("select * from Solicitud_prestamo where ID_Cliente like'"+nombre+"%'");
                 DefaultTableModel model = new DefaultTableModel();
                 jtConsulta.setModel(model);
-                model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono"});
-                
+                model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud","Codigo Del Cliente", "Codigo de la Garantia Solidaria", "Codigo de la Garantia Prendaria", "Codigo de la Garantia Hipotecaria", "Monto","Plazo", "Fecha de la solicitud","Tipo de Prestamo"});
+        
 
                     while(rs.next()){
 
-                        model.addRow(new Object[]{rs.getInt("id_cliente"), rs.getString("Nombre"), rs.getString("apellido"), rs.getInt("cedula"), rs.getInt("fecha_naci"), rs.getString("Sexo"), rs.getString("direccion"), rs.getString("telefono")});
-
+                        model.addRow(new Object[]{rs.getInt("ID_solicitud"), rs.getInt("ID_Cliente"), rs.getInt("ID_GaranSolid"), rs.getInt("ID_GaranPren"), rs.getInt("ID_GaranHipo"), rs.getInt("Monto"), rs.getString("Plazo"), rs.getString("Fecha_solicitud"), rs.getString("Tipo_Prestamo")});
+                
                     }
-
+                }
                 } catch(Exception e){
-
+                    JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } finally{
                     cc.close();
                 }
@@ -411,15 +513,15 @@ public class Agregar extends javax.swing.JFrame {
                 try{
                     int ho = Integer.parseInt(nombre);
                     if(ho >= 0){
-                        ResultSet rs = cc.Vertodo("select * from Clientes where id_cliente = "+nombre+"");
+                        ResultSet rs = cc.Vertodo("select * from Solicitud_prestamo where ID_solicitud = "+nombre+"");
                         DefaultTableModel model = new DefaultTableModel();
                         jtConsulta.setModel(model);
-                        model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono"});
-
+                        model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud","Codigo Del Cliente", "Codigo de la Garantia Solidaria", "Codigo de la Garantia Prendaria", "Codigo de la Garantia Hipotecaria", "Monto","Plazo", "Fecha de la solicitud","Tipo de Prestamo"});
+        
                         while(rs.next()){
 
-                            model.addRow(new Object[]{rs.getInt("id_cliente"), rs.getString("Nombre"), rs.getString("apellido"), rs.getInt("cedula"), rs.getInt("fecha_naci"), rs.getString("Sexo"), rs.getString("direccion"), rs.getString("telefono")});
-
+                            model.addRow(new Object[]{rs.getInt("ID_solicitud"), rs.getInt("ID_Cliente"), rs.getInt("ID_GaranSolid"), rs.getInt("ID_GaranPren"), rs.getInt("ID_GaranHipo"), rs.getInt("Monto"), rs.getString("Plazo"), rs.getString("Fecha_solicitud"), rs.getString("Tipo_Prestamo")});
+                
                         }
                     }
 
@@ -438,16 +540,16 @@ public class Agregar extends javax.swing.JFrame {
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
 
         try{
-        ResultSet rs = cc.Vertodo("select * from Clientes");
+        ResultSet rs = cc.Vertodo("select * from Solicitud_prestamo");
         DefaultTableModel model = new DefaultTableModel();
         jtConsulta.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Fecha de nacimiento", "Sexo", "Direccion","Telefono"});
+        model.setColumnIdentifiers(new Object[]{"Codigo de la Solicitud","Codigo Del Cliente", "Codigo de la Garantia Solidaria", "Codigo de la Garantia Prendaria", "Codigo de la Garantia Hipotecaria", "Monto","Plazo", "Fecha de la solicitud","Tipo de Prestamo"});
         
 
             while(rs.next()){
 
-                model.addRow(new Object[]{rs.getInt("id_cliente"), rs.getString("Nombre"), rs.getString("apellido"), rs.getInt("cedula"), rs.getInt("fecha_naci"), rs.getString("Sexo"), rs.getString("direccion"), rs.getString("telefono")});
-
+                model.addRow(new Object[]{rs.getInt("ID_solicitud"), rs.getInt("ID_Cliente"), rs.getInt("ID_GaranSolid"), rs.getInt("ID_GaranPren"), rs.getInt("ID_GaranHipo"), rs.getInt("Monto"), rs.getString("Plazo"), rs.getString("Fecha_solicitud"), rs.getString("Tipo_Prestamo")});
+                
             }
 
         } catch(Exception e){
@@ -460,7 +562,7 @@ public class Agregar extends javax.swing.JFrame {
     private void jbtSelecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSelecActionPerformed
 
         fila1 = jtConsulta.getSelectedRow();
-        String at = "";
+        String at = "", at1 = "";
 
         try{
             if(fila1==-1){
@@ -475,9 +577,18 @@ public class Agregar extends javax.swing.JFrame {
 
                         this.j= "Lleno";
                         at = jtConsulta.getValueAt(fila1, 1).toString();
-                        this.Codi = jtConsulta.getValueAt(fila1, 0).toString();
+                        at1 = jtConsulta.getValueAt(fila1, 0).toString();
+                        ResultSet rs1 = cc.Vertodo("select * from Clientes where ID_cliente = "+at+"");
+                        int a1;
+                        String n = "";
+                                    
+                        while(rs1.next()){
+                        n = rs1.getString("Nombre_cli");
+                        }
+                        
                         //this.gara = Integer.parseInt(at);
-                        jlCliente.setText(at);
+                        this.Codi = at1;
+                        jLabel9.setText(n);
                         jdBuscar.hide();
 
                     }
@@ -487,6 +598,15 @@ public class Agregar extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jbtSelecActionPerformed
+
+    private void jrbCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrbCodigoActionPerformed
+
+    //Boton para salir de la ventana
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        this.hide();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -524,16 +644,14 @@ public class Agregar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Ganan;
-    private javax.swing.JTextField Itebis;
-    private javax.swing.JTextField Montoade;
-    private javax.swing.JTextField Montores;
-    private javax.swing.JTextField Montotol;
+    private javax.swing.JTextField Tasa;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

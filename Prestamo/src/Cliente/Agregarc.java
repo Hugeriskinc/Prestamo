@@ -6,11 +6,15 @@
 package Cliente;
 
 import Base_datos.Conectar_Oracle;
+import Empleado.Agregare;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -56,6 +60,33 @@ public class Agregarc extends javax.swing.JFrame {
         jCbSexo.insertItemAt("Femenino", 1);
         
         
+    }
+    
+    public void Buscar(){
+            
+            int a1=0;
+
+            
+            
+        try {
+            ResultSet rs1;
+                try {
+                    rs1 = cc.Vertodo("select * from empleado");
+                    
+                    while(rs1.next()){
+                        a1 = rs1.getInt("Id_Empleado");
+                
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Agregare.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        } catch (SQLException ex) {
+        }
+        
+        a = a1 + 1;
+        jblUsu1.setText(String.valueOf(a));
+    
     }
 
     /**
@@ -287,6 +318,7 @@ public class Agregarc extends javax.swing.JFrame {
                     jtxtCelular.setText("");
                     jtxtEmail.setText("");
                     this.gara = 0;
+                    Buscar();
                     
                      }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);

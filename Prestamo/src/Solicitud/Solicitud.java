@@ -6,9 +6,13 @@
 package Solicitud;
 
 import Base_datos.Conectar_Oracle;
+import Empleado.Agregare;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +35,7 @@ public class Solicitud extends javax.swing.JFrame {
         int a1=0, b1=0;
         
         try{
-        ResultSet rs = cc.Vertodo("select * from solicitud");
+        ResultSet rs = cc.Vertodo("select * from Solicitud_prestamo");
         
             
             while(rs.next()){
@@ -53,6 +57,33 @@ public class Solicitud extends javax.swing.JFrame {
         jcbGarante.addItem("Vehiculo");
         jcbGarante.addItem("Hipotecario");
         
+    }
+    
+    public void Buscar(){
+            
+            int a1=0;
+
+            
+            
+        try {
+            ResultSet rs1;
+                try {
+                    rs1 = cc.Vertodo("select * from Solicitud_prestamo");
+                    
+                    while(rs1.next()){
+                        a1 = rs1.getInt("Id_Solicitud");
+                
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Agregare.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        } catch (SQLException ex) {
+        }
+        
+        a = a1 + 1;
+        jlCodigo.setText(String.valueOf(a));
+    
     }
     
     //Metodo par ala fecha
@@ -107,7 +138,7 @@ public class Solicitud extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(463, 68, -1, -1));
 
         jlCodigo.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jPanel1.add(jlCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 70, 53, 22));
+        jPanel1.add(jlCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 70, 53, 30));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel4.setText("Nombre del cliente:");
@@ -158,7 +189,7 @@ public class Solicitud extends javax.swing.JFrame {
         jPanel1.add(jtxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 215, 28));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel7.setText("Cedula:");
+        jLabel7.setText("Cliente:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
@@ -244,6 +275,7 @@ public class Solicitud extends javax.swing.JFrame {
                     jtxtCorreo.setText("");
                     jlbCodigoE.setText("");
                     ele = "";
+                    Buscar();
                     
                     }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo" + e, JOptionPane.INFORMATION_MESSAGE);

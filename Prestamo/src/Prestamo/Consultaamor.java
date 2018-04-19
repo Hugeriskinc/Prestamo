@@ -6,8 +6,6 @@
 package Prestamo;
 
 import Base_datos.Conectar_Oracle;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,24 +14,24 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Oscar Ortiz
  */
-public class Consultarp extends javax.swing.JFrame {
+public class Consultaamor extends javax.swing.JFrame {
 
     /**
-     * Creates new form Consultar
+     * Creates new form Consultaamor
      */
-    public Consultarp() {
+    public Consultaamor() {
         initComponents();
         
         try{
-        ResultSet rs = bd.Vertodo("select * from Prestamo_concedido");
+        ResultSet rs = bd.Vertodo("select * from Amortizacion");
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del prestamo", "Codigo de la solicitud", "Interes", "Estado", "Categoria", "Fecha"});
+        model.setColumnIdentifiers(new Object[]{"Codigo de la Amortizacion", "Codigo de la Prestamo", "Cuotas", "Capital", "Interes", "Monto"});
         
             
             while(rs.next()){
                 
-                model.addRow(new Object[]{rs.getInt("Id_prestamo"), rs.getInt("ID_solicitud"),rs.getInt("Tasa_Interes"), rs.getString("Estado"),rs.getString("Categoria"), rs.getString("Fecha_Prestamo")});
+                model.addRow(new Object[]{rs.getInt("ID_Amortizacion"), rs.getInt("Id_prestamo"),rs.getDouble("Cuotas"), rs.getDouble("Capital"),rs.getInt("Interes"), rs.getInt("Monto")});
                 
             }
             
@@ -42,6 +40,7 @@ public class Consultarp extends javax.swing.JFrame {
         } finally{
             bd.close();
         }
+        
     }
 
     /**
@@ -63,10 +62,10 @@ public class Consultarp extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTabla = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(getIconImage());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -93,13 +92,13 @@ public class Consultarp extends javax.swing.JFrame {
         jPanel1.add(jbtMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 210, 50));
 
         jrbMonto.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jrbMonto.setText("Solicitud");
-        jPanel1.add(jrbMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(639, 20, 140, -1));
+        jrbMonto.setText("Codigo Amortización");
+        jPanel1.add(jrbMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(639, 20, 240, -1));
 
         jrbCodigo.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jrbCodigo.setSelected(true);
-        jrbCodigo.setText("Codigo");
-        jPanel1.add(jrbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(635, 70, 130, -1));
+        jrbCodigo.setText("Codigo Prestamo");
+        jPanel1.add(jrbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, 220, -1));
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
@@ -109,10 +108,10 @@ public class Consultarp extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 630, 150, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 630, 150, 40));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel1.setText("Consultar Prestamo");
+        jLabel1.setText("Consultar Amortización");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 36, -1, -1));
 
         jtTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -128,10 +127,15 @@ public class Consultarp extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jtTabla);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 753, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 910, -1));
+
+        jButton2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Reporte.png"))); // NOI18N
+        jButton2.setText("Reporte");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 103, 150, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 700));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 700));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,97 +151,88 @@ public class Consultarp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().
-                getImage(ClassLoader.getSystemResource("Imagenes/icono.png"));
-
-
-        return retValue;
-    }
-    
     private void jbtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBuscarActionPerformed
 
         String nombre = jtxtBuscar.getText();
-        
+
         if(jrbMonto.isSelected() == false && jrbCodigo.isSelected() == false){
             JOptionPane.showMessageDialog(null, "No a elegino ningun tipo a buscar", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
         } else {
-        if(jrbMonto.isSelected() == true && jrbCodigo.isSelected() == true){
-            JOptionPane.showMessageDialog(null, "Solo puede sellecionar una sola opcion", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
-        } else if(jrbMonto.isSelected() == true){
-            if(nombre.equals("")){
-                JOptionPane.showMessageDialog(null, "No a escrito el monto a buscar", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
-            } else{
-                 char k = nombre.charAt(0);
-                if(Character.isLetter(k)){
-                    JOptionPane.showMessageDialog(null, "Solo Puede introducir Numero", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
+            if(jrbMonto.isSelected() == true && jrbCodigo.isSelected() == true){
+                JOptionPane.showMessageDialog(null, "Solo puede sellecionar una sola opcion", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
+            } else if(jrbMonto.isSelected() == true){
+                if(nombre.equals("")){
+                    JOptionPane.showMessageDialog(null, "No a escrito el monto a buscar", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } else{
-                try{
-                ResultSet rs = bd.Vertodo("select * from Prestamo_concedido where ID_solicitud = "+nombre+"");
-                DefaultTableModel model = new DefaultTableModel();
-                jtTabla.setModel(model);
-                model.setColumnIdentifiers(new Object[]{"Codigo del prestamo", "Codigo de la solicitud", "Interes", "Estado", "Categoria", "Fecha"});
-
-                    while(rs.next()){
-
-                        model.addRow(new Object[]{rs.getInt("Id_prestamo"), rs.getInt("ID_solicitud"),rs.getInt("Tasa_Interes"), rs.getString("Estado"),rs.getString("Categoria"), rs.getString("Fecha_Prestamo")});
-                
-                    }
-
-                } catch(Exception e){
-
-                } finally{
-                    bd.close();
-                }
-            }
-            }
-        }else{
-            if(nombre.equals("")){
-                JOptionPane.showMessageDialog(null, "No a escrito el codigo a buscar");
-            } else{
-
-                try{
                     char k = nombre.charAt(0);
-                if(Character.isLetter(k)){
-                    JOptionPane.showMessageDialog(null, "Solo Puede introducir Numero", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
-                } else{
-                        ResultSet rs = bd.Vertodo("select * from Prestamo_concedido where id_prestamo = "+nombre+"");
-                        DefaultTableModel model = new DefaultTableModel();
-                        jtTabla.setModel(model);
-                        model.setColumnIdentifiers(new Object[]{"Codigo del prestamo", "Codigo de la solicitud", "Interes", "Estado", "Categoria", "Fecha"});
-                        while(rs.next()){
+                    if(Character.isLetter(k)){
+                        JOptionPane.showMessageDialog(null, "Solo Puede introducir Numero", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
+                    } else{
+                        try{
+                            ResultSet rs = bd.Vertodo("select * from Amortizacion where ID_Amortizacion = "+nombre+"");
+                            DefaultTableModel model = new DefaultTableModel();
+                            jtTabla.setModel(model);
+                            model.setColumnIdentifiers(new Object[]{"Codigo de la Amortizacion", "Codigo de la Prestamo", "Cuotas", "Capital", "Interes", "Monto"});
+        
+                            while(rs.next()){
 
-                            model.addRow(new Object[]{rs.getInt("Id_prestamo"), rs.getInt("ID_solicitud"),rs.getInt("Tasa_Interes"), rs.getString("Estado"),rs.getString("Categoria"), rs.getString("Fecha_Prestamo")});
+                                model.addRow(new Object[]{rs.getInt("ID_Amortizacion"), rs.getInt("Id_prestamo"),rs.getDouble("Cuotas"), rs.getDouble("Capital"),rs.getInt("Interes"), rs.getInt("Monto")});
                 
+                            }
+
+                        } catch(Exception e){
+
+                        } finally{
+                            bd.close();
                         }
                     }
-
-                } catch(Exception e){
-
-                    //JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
-
-                } finally{
-                    bd.close();
                 }
+            }else{
+                if(nombre.equals("")){
+                    JOptionPane.showMessageDialog(null, "No a escrito el codigo a buscar");
+                } else{
 
+                    try{
+                        char k = nombre.charAt(0);
+                        if(Character.isLetter(k)){
+                            JOptionPane.showMessageDialog(null, "Solo Puede introducir Numero", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
+                        } else{
+                            ResultSet rs = bd.Vertodo("select * from Amortizacion where id_prestamo = "+nombre+"");
+                            DefaultTableModel model = new DefaultTableModel();
+                            jtTabla.setModel(model);
+                            model.setColumnIdentifiers(new Object[]{"Codigo de la Amortizacion", "Codigo de la Prestamo", "Cuotas", "Capital", "Interes", "Monto"});
+                            while(rs.next()){
+
+                               model.addRow(new Object[]{rs.getInt("ID_Amortizacion"), rs.getInt("Id_prestamo"),rs.getDouble("Cuotas"), rs.getDouble("Capital"),rs.getInt("Interes"), rs.getInt("Monto")});
+                
+                            }
+                        }
+
+                    } catch(Exception e){
+
+                        //JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
+
+                    } finally{
+                        bd.close();
+                    }
+
+                }
             }
-        }
         }
     }//GEN-LAST:event_jbtBuscarActionPerformed
 
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
 
         try{
-        ResultSet rs = bd.Vertodo("select * from Prestamo_concedido");
-        DefaultTableModel model = new DefaultTableModel();
-        jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del prestamo", "Codigo de la solicitud", "Interes", "Estado", "Categoria", "Fecha"});
-
+            ResultSet rs = bd.Vertodo("select * from Amortizacion");
+            DefaultTableModel model = new DefaultTableModel();
+            jtTabla.setModel(model);
+            model.setColumnIdentifiers(new Object[]{"Codigo de la Amortizacion", "Codigo de la Prestamo", "Cuotas", "Capital", "Interes", "Monto"});
+        
             while(rs.next()){
 
-                model.addRow(new Object[]{rs.getInt("Id_prestamo"), rs.getInt("ID_solicitud"),rs.getInt("Tasa_Interes"), rs.getString("Estado"),rs.getString("Categoria"), rs.getString("Fecha_Prestamo")});
-                          
+                model.addRow(new Object[]{rs.getInt("ID_Amortizacion"), rs.getInt("Id_prestamo"),rs.getDouble("Cuotas"), rs.getDouble("Capital"),rs.getInt("Interes"), rs.getInt("Monto")});
+                
             }
 
         } catch(Exception e){
@@ -250,7 +245,6 @@ public class Consultarp extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         this.hide();
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -270,21 +264,20 @@ public class Consultarp extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Consultarp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Consultaamor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Consultarp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Consultaamor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Consultarp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Consultaamor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Consultarp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Consultaamor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Consultarp().setVisible(true);
+                new Consultaamor().setVisible(true);
             }
         });
     }
@@ -293,6 +286,7 @@ public class Consultarp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

@@ -10,8 +10,8 @@ values(1, 'Juan', 'Perez', '048-9876587-6', '29/04/1990', 'm', 'Jara', '809-876-
 insert into tipo_Garante(id_Garante, nombre_completo, cedula, Fecha_naci, Sexo, Direccion, telefono)
 values(1, 'Juan', '809234', '04/09/2017', 'm', 'Jara', '214294');
 
-insert into solicitud(Id_Solicitud, Nombre_cliente, Cedula, Monto_prestamo, Correo_elec, Tipo_garante, Fecha_re, Id_empleado)
-values(1, 'Oscar', '401-0987654-3', 1234, 'oscar_', 'jo', '02/09/2017', 1);
+insert into Solicitud_prestamo(ID_solicitud, ID_Cliente, ID_GaranSolid, ID_GaranPren, ID_GaranHipo, Monto, Plazo, Fecha_solicitud, Tipo_Prestamo)
+values(1, 1, null, null, null, 500000, '12 meses', '18/04/2018', 'Pendiente');
 
 insert into Prestamo(Id_prestamo, Monto_deuda, Monto_restante, Monto_total, Itebis, Ganancias, Id_cliente, Fecha_prestamo, Estatus)
 values(1, 150000,100000,170000,2000,20000,1,'12/09/2017', 'Pendiente');
@@ -28,4 +28,4 @@ values(1, 1);
 insert into solicitud(id_solicitud, Nombre_cliente, cedula, Monto_prestamo, Correo_elec, Tipo_garante, Fecha_re, id_empleado, Estatus)
 values(4, 'Oscar', 'Ortiz', 12000, 'oscar_ortiz30@hotmail.es', 'Hipotecari', '13/11/2013', 1, 'Aprobado');
 
-delete from Clientes where Id_Cliente = 5;
+delete from empleado where Id_empleado = 4;

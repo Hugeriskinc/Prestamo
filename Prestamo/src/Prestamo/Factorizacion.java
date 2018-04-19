@@ -5,6 +5,12 @@
  */
 package Prestamo;
 
+import Empleado.Agregare;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Oscar Ortiz
@@ -16,6 +22,33 @@ public class Factorizacion extends javax.swing.JFrame {
      */
     public Factorizacion() {
         initComponents();
+    }
+    
+    public void Buscar(){
+            
+            int a1=0;
+
+            
+            
+        try {
+            ResultSet rs1;
+                try {
+                    rs1 = cc.Vertodo("select * from empleado");
+                    
+                    while(rs1.next()){
+                        a1 = rs1.getInt("Id_Empleado");
+                
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Agregare.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        } catch (SQLException ex) {
+        }
+        
+        a = a1 + 1;
+        jLabel3.setText(String.valueOf(a));
+    
     }
 
     /**
@@ -57,10 +90,10 @@ public class Factorizacion extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel2.setText("Codigo de la factura:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(484, 42, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(551, 88, 40, 31));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 40, 31));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel4.setText("Codigo del Cliente");

@@ -6,9 +6,13 @@
 package Garante;
 
 import Base_datos.Conectar_Oracle;
+import Empleado.Agregare;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -53,6 +57,33 @@ public class Garante extends javax.swing.JFrame {
         jcTipo.insertItemAt("Hipotecario", 1);
         jcTipo.insertItemAt("Solidario", 2);
         
+    }
+    
+    public void Buscar(){
+            
+            int a1=0;
+
+            
+            
+        try {
+            ResultSet rs1;
+                try {
+                    rs1 = cc.Vertodo("select * from empleado");
+                    
+                    while(rs1.next()){
+                        a1 = rs1.getInt("Id_Empleado");
+                
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Agregare.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        } catch (SQLException ex) {
+        }
+        
+        a = a1 + 1;
+        jblUsu2.setText(String.valueOf(a));
+    
     }
 
     /**
@@ -239,6 +270,7 @@ public class Garante extends javax.swing.JFrame {
                     jDateChooser2.setDate(fecha);
                     fechana = "";
                     this.gara = 0;
+                    Buscar();
 
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);

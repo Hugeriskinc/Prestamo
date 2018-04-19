@@ -49,8 +49,6 @@ public class Amortizacion extends javax.swing.JFrame {
             cc.close();
         }
         
-        jLabel9.setText(fecha());
-        
         
     }
     
@@ -75,6 +73,7 @@ public class Amortizacion extends javax.swing.JFrame {
     double amountInterest;
     double monthlyPayment;
     double monthlyInterest;
+    double capital = 0;
     
 
     /**
@@ -95,24 +94,26 @@ public class Amortizacion extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jtxtMonto = new javax.swing.JTextField();
         jtxtPlazo = new javax.swing.JTextField();
-        JtxtInteres = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        jlInteres = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
 
         jdConsultar.setTitle("Amortizacion");
-        jdConsultar.setMinimumSize(new java.awt.Dimension(751, 591));
+        jdConsultar.setMaximumSize(new java.awt.Dimension(770, 700));
+        jdConsultar.setMinimumSize(new java.awt.Dimension(770, 700));
+        jdConsultar.setModal(true);
+        jdConsultar.setPreferredSize(new java.awt.Dimension(770, 700));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -122,18 +123,18 @@ public class Amortizacion extends javax.swing.JFrame {
 
         jAmortizacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Monto Total", "Plazo", "Interes", "Cuotas Mensual", "Monto adeudado"
+                "Monto Total", "Plazo", "Interes", "Capital", "Cuotas Mensual", "Monto adeudado"
             }
         ));
         jScrollPane1.setViewportView(jAmortizacion);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 81, 717, 443));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 717, 443));
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
@@ -143,7 +144,7 @@ public class Amortizacion extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(565, 530, -1, -1));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 580, -1, -1));
 
         jButton5.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Guardar.png"))); // NOI18N
@@ -153,25 +154,30 @@ public class Amortizacion extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 530, -1, -1));
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 580, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel11.setText("Interes:");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 27, -1, -1));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(643, 31, 30, 24));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 30, 24));
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel7.setText("Capital:");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, 160, 30));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -5, 760, 590));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -5, 780, 680));
 
         javax.swing.GroupLayout jdConsultarLayout = new javax.swing.GroupLayout(jdConsultar.getContentPane());
         jdConsultar.getContentPane().setLayout(jdConsultarLayout);
         jdConsultarLayout.setHorizontalGroup(
             jdConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jdConsultarLayout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jdConsultarLayout.setVerticalGroup(
             jdConsultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,13 +206,8 @@ public class Amortizacion extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel4.setText("Interes (%):");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel7.setText("Fecha del prestamo:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, -1, -1));
         jPanel1.add(jtxtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 72, 185, 28));
         jPanel1.add(jtxtPlazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 118, 185, 28));
-        jPanel1.add(JtxtInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 185, 29));
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
@@ -216,7 +217,7 @@ public class Amortizacion extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 170, 140, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 140, 40));
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Calcular.png"))); // NOI18N
@@ -226,16 +227,13 @@ public class Amortizacion extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, 120, 20));
+        jlInteres.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jPanel1.add(jlInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 64, 130, 40));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 290));
-
-        jTextField1.setText("jTextField1");
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 240));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -263,10 +261,10 @@ public class Amortizacion extends javax.swing.JFrame {
     //Boton de calcular
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         
-        this.Intere = JtxtInteres.getText();
+        this.Intere = jlInteres.getText();
         this.Plaz = jtxtPlazo.getText();
         this.mont = jtxtMonto.getText();
-        String jh = JtxtInteres.getText();
+        String jh = jlInteres.getText();
         
         
         String j = "";
@@ -289,7 +287,6 @@ public class Amortizacion extends javax.swing.JFrame {
         }
         
         
-        
     }//GEN-LAST:event_jButton3ActionPerformed
     
     public void Consultar(String lengthS, String principalS, String interestS){
@@ -297,10 +294,13 @@ public class Amortizacion extends javax.swing.JFrame {
     this.principal = Double.parseDouble(principalS); 
     this.length = Integer.parseInt(lengthS); 
     double interest = Double.parseDouble(interestS);
+    double inte = 0, cuot = 0;
 
     this.monthlyInterest = interest / (12 * 100); 
     this.monthlyPayment = principal * ( monthlyInterest / ( 1 - Math.pow((1 + monthlyInterest), (length*-1))));
-    
+        inte = monthlyPayment;
+        cuot = principal * monthlyInterest;
+        capital = inte - cuot;
 
     jAmortizacion.setModel(modelo);
     modelo.setColumnIdentifiers(new Object[]{"No.","Monto Total", "Plazo", "Interes", "Cuotas Mensual", "Monto Adeudado"});
@@ -309,12 +309,17 @@ public class Amortizacion extends javax.swing.JFrame {
 
         for (int x = 1; x <= length; x++) { 
         this.amountInterest = principal * monthlyInterest; 
-        double amountPrincipal = monthlyPayment - amountInterest; principal = principal - amountPrincipal;
+        double amountPrincipal = monthlyPayment - amountInterest; 
+        principal = principal - amountPrincipal;
 
         modelo.addRow(new Object[]{x, this.mont, this.length, nf.format(this.amountInterest), nf.format(this.monthlyPayment), nf.format(this.principal)});
 
         }
-
+        
+        
+        
+        jLabel9.setText(nf.format(capital));
+        
      }
     
     //Boton para cerrar la vertanta de la amortizacion
@@ -326,27 +331,26 @@ public class Amortizacion extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        Date fecha = new Date();
         NumberFormat nf = NumberFormat.getCurrencyInstance();
-        SimpleDateFormat formato = new SimpleDateFormat("YYYY/MM/dd");
+        String codigo = String.valueOf(a);
+        String codigop = String.valueOf(coemple);
+        String cuotas = String.valueOf(this.monthlyPayment);
+        String capita = String.valueOf(this.capital);
+        String interes = String.valueOf(this.Intere);
         String Monto = String.valueOf(this.mont);
-        String Interes = String.valueOf(nf.format(this.amountInterest));
-        String cuota = String.valueOf(nf.format(this.monthlyPayment));
-        String Montode = String.valueOf(nf.format(this.principal));
-        String fecha1 = "";
-        String Empl = String.valueOf(coemple);
         
-        fecha1 = formato.format(fecha);
         
-        if(Monto.equals("") || Interes.equals("") || cuota.equals("") || Montode.equals("")){
+        
+        if(Monto.equals("") || cuotas.equals("") || capita.equals("") || interes.equals("") || Monto.equals("")){
         
             JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
             
         }else{
             try{
                     
-                    cc.Insert("insert into Amortizacion(Id_amortizacion, Monto_total, Interes, Plazo, Cuotas, DeudaM, Fecha, Id_prestamo, Estado)"
-                    + "values ("+"1"+", '"+Monto+"', '"+nf.format(this.amountInterest)+"', '"+this.length+"', '"+nf.format(this.monthlyPayment)+"', '"+nf.format(this.principal)+"', '"+fecha1+"', "+Empl+", 'Deuda')");
+                    cc.Insert("insert into Amortizacion(Id_amortizacion, id_prestamo, cuotas, capital, interes, monto)"
+                    + "values ("+codigo+", "+codigop+", "+cuotas+", "+capita+", "+interes+", "+Monto+")");
+                    this.hide();
                     
             }catch(Exception e){
 
@@ -393,7 +397,6 @@ public class Amortizacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField JtxtInteres;
     private javax.swing.JTable jAmortizacion;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -413,8 +416,8 @@ public class Amortizacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTextField jTextField1;
     private javax.swing.JDialog jdConsultar;
+    public static javax.swing.JLabel jlInteres;
     private javax.swing.JTextField jtxtMonto;
     private javax.swing.JTextField jtxtPlazo;
     // End of variables declaration//GEN-END:variables

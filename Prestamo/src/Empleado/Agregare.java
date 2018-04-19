@@ -12,10 +12,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -45,7 +48,6 @@ public class Agregare extends javax.swing.JFrame {
             
             
             a = a1 + 1;
-            b = b1 + 1;
         } catch(Exception e){
             
         } finally{
@@ -57,6 +59,33 @@ public class Agregare extends javax.swing.JFrame {
         jCbSexo.insertItemAt("Masculino", 0);
         jCbSexo.insertItemAt("Femenino", 1);
         
+    }
+    
+    public void Buscar(){
+            
+            int a1=0;
+
+            
+            
+        try {
+            ResultSet rs1;
+                try {
+                    rs1 = cc.Vertodo("select * from empleado");
+                    
+                    while(rs1.next()){
+                        a1 = rs1.getInt("Id_Empleado");
+                
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Agregare.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        } catch (SQLException ex) {
+        }
+        
+        a = a1 + 1;
+        jblUsu1.setText(String.valueOf(a));
+    
     }
 
     /**
@@ -245,14 +274,22 @@ public class Agregare extends javax.swing.JFrame {
         String Usuario = jtxtUsuario.getText();
         String Contrase = jtxtContrase.getText();
         String Categoria = jtxtCategoria.getText();
+        String usu = "";
+        
         try{
-        cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ADM","Administrador");
+        
+            ResultSet rs1 = cc.Vertodo("select * from Empleado where Usuario_emp = '"+Usuario+"'");
+            while(rs1.next()){
+            usu = rs1.getString("Usuario_emp");
+            }
+            cc.close();
+            cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ADM","Administrador");
         if(Nombre.equals("") || Apellido.equals("") || Cedula.equals("") || Sexo.equals("") || Direccion.equals("") || Categoria.equals("")){
         
             JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
             
         }else{
-            if(Usuario.equals(gh)){
+            if(Usuario.equals(usu)){
                     JOptionPane.showMessageDialog(null, "El usuario esta registrado", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                 try{
@@ -286,6 +323,7 @@ public class Agregare extends javax.swing.JFrame {
                     jtxtUsuario.setText("");
                     jtxtContrase.setText("");
                     jtxtCategoria.setText("");
+                    Buscar();
                     
                     JOptionPane.showMessageDialog(null, "Se Agrego El Registro ", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
                     
@@ -295,7 +333,7 @@ public class Agregare extends javax.swing.JFrame {
                     cc.close();
                 }}}
         } catch(Exception e){
-        JOptionPane.showMessageDialog(null, "Faltan datos por introducir! hola", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
         }
         
             

@@ -87,9 +87,9 @@ create or REPLACE view Empleado as select * from empleado;
 create table Solicitud_prestamo(
 ID_solicitud Number,
 ID_Cliente Number,
-ID_GaranSolid Number,
-ID_GaranPren number,
-ID_GaranHipo number,
+ID_GaranSolid Number null,
+ID_GaranPren number null,
+ID_GaranHipo number null,
 Monto Number(9,2),
 Plazo Varchar2(50),
 Fecha_solicitud date,
@@ -107,7 +107,7 @@ ID_Prestamo number,
 ID_solicitud Number,
 Tasa_Interes Number(3),
 Estado Varchar2(30),
-Categoria Char(1),
+Categoria Varchar2(10),
 Fecha_Prestamo date,
 Constraint PK_Prestamo_Concedido Primary Key (ID_Prestamo),
 Constraint FK_Prestamo_Solicitud Foreign Key (ID_Solicitud) References Solicitud_Prestamo (ID_Solicitud))
@@ -116,7 +116,7 @@ tablespace prestamo;
 Create Table Amortizacion(
 ID_Amortizacion Number,
 ID_Prestamo Number,
-Cuotas Number,
+Cuotas Number(9,2),
 Capital Number(9,2),
 Interes number(9,2),
 Monto Number(9,2),
@@ -140,5 +140,6 @@ drop table garantia_prendaria;
 drop table garantia_hipotecaria;
 Drop table Solicitud_prestamo;
 Drop table Prestamo_concedido;
+Drop table Amortizacion;
 
 create user ADM_Prestamo identified by Administrador;
