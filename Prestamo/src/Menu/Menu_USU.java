@@ -8,7 +8,6 @@ package Menu;
 import Base_datos.Conectar_Oracle;
 import Cliente.Agregarc;
 import Cliente.Consultarc;
-import Ingresos.Ingresosver;
 import Login.Login;
 import static Menu.Menu_ADM.fecha;
 import Prestamo.Agregar;
@@ -161,7 +160,6 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("title\tMenu Sistema Prestamo USUARIO");
@@ -320,15 +318,6 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
         });
         jMenu6.add(jMenuItem4);
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ingresos.png"))); // NOI18N
-        jMenuItem6.setText("Ingresos");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem6);
-
         jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
@@ -385,9 +374,7 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         
-        String j = jlUsu.getText();
         Solicitud s = new Solicitud();
-        s.jlbCodigoE.setText(j);
         s.show();
         
     }//GEN-LAST:event_jMenuItem7ActionPerformed
@@ -398,11 +385,6 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
         fa.show();
         
     }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        Ingresosver ver = new Ingresosver();
-        ver.show();
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -459,7 +441,6 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

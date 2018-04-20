@@ -7,13 +7,19 @@ package Garante;
 
 import Base_datos.Conectar_Oracle;
 import Empleado.Agregare;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -25,41 +31,61 @@ public class Garante extends javax.swing.JFrame {
      * Creates new form Garante
      */
     
-    int a=0, b=0, fila1, gara;
+    int a=0, b=0, c=0, fila1, gara;
     String j="", Fechana = "";
     
-    public Garante() {
+    public Garante() throws ParseException {
         initComponents();
         
-        int b1=0;
+        int b1=0, b2=0, b3=0;
         
         try{
         
-            ResultSet rs2 = cc.Vertodo("select * from Tipo_Garante");
+            ResultSet rs1 = cc.Vertodo("select * from Garantia_solidaria");
             
-            while(rs2.next()){
-            b1 = rs2.getInt("Id_garante");
+            while(rs1.next()){
+            b1 = rs1.getInt("Id_GaranSolid");
                 
             }
-            b = b1 + 1;
+            ResultSet rs2 = cc.Vertodo("select * from Garantia_Hipotecaria");
+            
+            while(rs2.next()){
+            b2 = rs2.getInt("ID_GaranHipo");
+                
+            }
+            ResultSet rs3 = cc.Vertodo("select * from Garantia_Prendaria");
+            
+            while(rs3.next()){
+            b3 = rs3.getInt("ID_GaranPren");
+                
+            }
+            a = b1 + 1;
+            b = b2 + 1;
+            c = b3 + 1;
             
             
         } catch(Exception e){
         
         }
         
-        jblUsu2.setText(String.valueOf(b));
-        jCbSexo1.removeAllItems();
-        jCbSexo1.insertItemAt("Masculino", 0);
-        jCbSexo1.insertItemAt("Femenino", 1);
-        jcTipo.removeAllItems();
-        jcTipo.insertItemAt("Prendario", 0);
-        jcTipo.insertItemAt("Hipotecario", 1);
-        jcTipo.insertItemAt("Solidario", 2);
+        jblGarantia1.setText(String.valueOf(a));
+        jblGarantia2.setText(String.valueOf(b));
+        jblGarantia3.setText(String.valueOf(c));
+        
+        jCbGarantia1.removeAllItems();
+        jCbGarantia1.insertItemAt("Masculino", 0);
+        jCbGarantia1.insertItemAt("Femenino", 1);
+        
+        
+        jComboBox1.removeAllItems();
+        jComboBox1.insertItemAt("Solidaria", 0);
+        jComboBox1.insertItemAt("Hipotecaria", 1);
+        jComboBox1.insertItemAt("Prendaria", 2);
+        
         
     }
     
-    public void Buscar(){
+    public void Buscar1(){
             
             int a1=0;
 
@@ -68,10 +94,10 @@ public class Garante extends javax.swing.JFrame {
         try {
             ResultSet rs1;
                 try {
-                    rs1 = cc.Vertodo("select * from empleado");
+                    rs1 = cc.Vertodo("select * from Garantia_solidaria");
                     
                     while(rs1.next()){
-                        a1 = rs1.getInt("Id_Empleado");
+                        a1 = rs1.getInt("Id_GaranSolid");
                 
                     }
                 } catch (ClassNotFoundException ex) {
@@ -82,7 +108,61 @@ public class Garante extends javax.swing.JFrame {
         }
         
         a = a1 + 1;
-        jblUsu2.setText(String.valueOf(a));
+        jblGarantia1.setText(String.valueOf(a));
+    
+    }
+    
+    public void Buscar2(){
+            
+            int a1=0;
+
+            
+            
+        try {
+            ResultSet rs1;
+                try {
+                    rs1 = cc.Vertodo("select * from Garantia_Hipotecaria");
+                    
+                    while(rs1.next()){
+                        a1 = rs1.getInt("ID_GaranHipo");
+                
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Agregare.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        } catch (SQLException ex) {
+        }
+        
+        b = a1 + 1;
+        jblGarantia2.setText(String.valueOf(b));
+    
+    }
+    
+    public void Buscar3(){
+            
+            int a1=0;
+
+            
+            
+        try {
+            ResultSet rs1;
+                try {
+                    rs1 = cc.Vertodo("select * from Garantia_Prendaria");
+                    
+                    while(rs1.next()){
+                        a1 = rs1.getInt("ID_GaranPren");
+                
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Agregare.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+        } catch (SQLException ex) {
+        }
+        
+        c = a1 + 1;
+        jblGarantia3.setText(String.valueOf(c));
     
     }
 
@@ -95,11 +175,11 @@ public class Garante extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jdGarantiasoli = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -110,20 +190,65 @@ public class Garante extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
-        jblUsu2 = new javax.swing.JLabel();
-        jCbSexo1 = new javax.swing.JComboBox<>();
+        jblGarantia1 = new javax.swing.JLabel();
+        jCbGarantia1 = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
-        jcTipo = new javax.swing.JComboBox<>();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jtxtDireccionemp1 = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
+        jdGarantiaHipo = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jtxtdireccion2 = new javax.swing.JTextField();
+        jtxttiposo = new javax.swing.JTextField();
+        jtxtcedula2 = new javax.swing.JTextField();
+        jtxttitulo = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        jblGarantia2 = new javax.swing.JLabel();
+        jTextnombre1 = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        jdGarantiapre = new javax.swing.JDialog();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jtxtMarca = new javax.swing.JTextField();
+        jtxtModelo = new javax.swing.JTextField();
+        jtxtMatricula = new javax.swing.JTextField();
+        jtxtDue = new javax.swing.JTextField();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        jblGarantia3 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jtxtDireccionemp3 = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel36 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jdGarantiasoli.setMaximumSize(new java.awt.Dimension(710, 500));
+        jdGarantiasoli.setMinimumSize(new java.awt.Dimension(710, 500));
+        jdGarantiasoli.setPreferredSize(new java.awt.Dimension(710, 500));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel10.setText("Agregar Garante");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
+        jLabel10.setText("Agregar Garantia Solidaria");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel11.setText("Nombre:");
@@ -133,31 +258,27 @@ public class Garante extends javax.swing.JFrame {
         jLabel13.setText("Cedula:");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel14.setText("Fecha de nacimiento:");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
-
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel15.setText("Sexo:");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 282, -1, -1));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel16.setText("Direccion:");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 337, -1, -1));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel17.setText("Telefono:");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 387, -1, -1));
-        jPanel2.add(jtxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 112, 190, -1));
-        jPanel2.add(jtxtCedula1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 185, -1));
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
+        jPanel2.add(jtxtNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 102, 190, 30));
+        jPanel2.add(jtxtCedula1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 185, 30));
 
         jtxtDireccion1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtDireccion1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jtxtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 190, -1));
-        jPanel2.add(jtxtTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 190, -1));
+        jPanel2.add(jtxtDireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, 190, 30));
+        jPanel2.add(jtxtTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 190, 30));
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Añadir.png"))); // NOI18N
@@ -171,7 +292,7 @@ public class Garante extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
-        jButton5.setText("Volver");
+        jButton5.setText("Cerrar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -181,36 +302,254 @@ public class Garante extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel18.setText("N. Registro");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
 
-        jblUsu2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPanel2.add(jblUsu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 62, 42));
+        jblGarantia1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jPanel2.add(jblGarantia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 62, 42));
 
-        jCbSexo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jCbSexo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 282, 190, 27));
+        jCbGarantia1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(jCbGarantia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 190, 27));
 
         jLabel24.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabel24.setText("Tipo:");
-        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
-
-        jcTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(jcTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 190, -1));
-        jPanel2.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 230, 190, 30));
+        jLabel24.setText("Direccion del empleo:");
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
+        jPanel2.add(jtxtDireccionemp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 190, 30));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
         jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 500));
+
+        javax.swing.GroupLayout jdGarantiasoliLayout = new javax.swing.GroupLayout(jdGarantiasoli.getContentPane());
+        jdGarantiasoli.getContentPane().setLayout(jdGarantiasoliLayout);
+        jdGarantiasoliLayout.setHorizontalGroup(
+            jdGarantiasoliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdGarantiasoliLayout.setVerticalGroup(
+            jdGarantiasoliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdGarantiasoliLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jdGarantiaHipo.setMaximumSize(new java.awt.Dimension(710, 450));
+        jdGarantiaHipo.setMinimumSize(new java.awt.Dimension(710, 450));
+        jdGarantiaHipo.setPreferredSize(new java.awt.Dimension(710, 450));
+
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel12.setText("Agregar Garantia Hipotecaria");
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel14.setText("Direccion:");
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 109, -1, -1));
+
+        jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel20.setText("Tipo:");
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+
+        jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel21.setText("Nombre:");
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel22.setText("Cedula:");
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel23.setText("Titulo:");
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
+        jPanel3.add(jtxtdireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 102, 190, 30));
+        jPanel3.add(jtxttiposo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 185, 30));
+
+        jtxtcedula2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtcedula2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jtxtcedula2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, 190, 30));
+        jPanel3.add(jtxttitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 190, 30));
+
+        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Añadir.png"))); // NOI18N
+        jButton6.setText("Guardar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 150, 50));
+
+        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
+        jButton7.setText("Cerrar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, 150, 50));
+
+        jLabel25.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel25.setText("N. Registro");
+        jPanel3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
+
+        jblGarantia2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jPanel3.add(jblGarantia2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 62, 42));
+        jPanel3.add(jTextnombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 190, 30));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
+        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 500));
+
+        javax.swing.GroupLayout jdGarantiaHipoLayout = new javax.swing.GroupLayout(jdGarantiaHipo.getContentPane());
+        jdGarantiaHipo.getContentPane().setLayout(jdGarantiaHipoLayout);
+        jdGarantiaHipoLayout.setHorizontalGroup(
+            jdGarantiaHipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdGarantiaHipoLayout.setVerticalGroup(
+            jdGarantiaHipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jdGarantiapre.setMaximumSize(new java.awt.Dimension(710, 500));
+        jdGarantiapre.setMinimumSize(new java.awt.Dimension(710, 500));
+        jdGarantiapre.setResizable(false);
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel28.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel28.setText("Agregar Garantia Prendaria");
+        jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+
+        jLabel29.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel29.setText("Marca:");
+        jPanel4.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 109, -1, -1));
+
+        jLabel30.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel30.setText("Modelo:");
+        jPanel4.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+
+        jLabel31.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel31.setText("Año:");
+        jPanel4.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+
+        jLabel32.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel32.setText("Matricula:");
+        jPanel4.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+
+        jLabel33.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel33.setText("Dueño:");
+        jPanel4.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
+        jPanel4.add(jtxtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 102, 190, 30));
+        jPanel4.add(jtxtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 185, 30));
+
+        jtxtMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtMatriculaActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jtxtMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, 190, 30));
+        jPanel4.add(jtxtDue, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 190, 30));
+
+        jButton8.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Añadir.png"))); // NOI18N
+        jButton8.setText("Guardar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 150, 50));
+
+        jButton9.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
+        jButton9.setText("Cerrar");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, 150, 50));
+
+        jLabel34.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel34.setText("N. Registro");
+        jPanel4.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
+
+        jblGarantia3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jPanel4.add(jblGarantia3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 62, 42));
+
+        jLabel35.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel35.setText("Direccion:");
+        jPanel4.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
+        jPanel4.add(jtxtDireccionemp3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 190, 30));
+        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 190, 30));
+
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
+        jPanel4.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 500));
+
+        javax.swing.GroupLayout jdGarantiapreLayout = new javax.swing.GroupLayout(jdGarantiapre.getContentPane());
+        jdGarantiapre.getContentPane().setLayout(jdGarantiapreLayout);
+        jdGarantiapreLayout.setHorizontalGroup(
+            jdGarantiapreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdGarantiapreLayout.setVerticalGroup(
+            jdGarantiapreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdGarantiapreLayout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel1.setText("Registro de Garantia");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 37, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 134, 146, 41));
+
+        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 134, -1, -1));
+
+        jButton2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Volver 1.png"))); // NOI18N
+        jButton2.setText("Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(256, 226, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura-de-papel-tapiz-blanco_1203-8531.jpg"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 320));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
         );
 
         pack();
@@ -222,43 +561,32 @@ public class Garante extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        Date fecha = null;
-        String Codigo = String.valueOf(b);
+        String Codigo = String.valueOf(a);
         String Nombre = jtxtNombre1.getText();
         String Cedula = jtxtCedula1.getText();
         String ele = "";
-        if(jCbSexo1.getSelectedIndex() == 0){
+        if(jCbGarantia1.getSelectedIndex() == 0){
             ele = "m";
-        } else if(jCbSexo1.getSelectedIndex() == 1){
+        } else if(jCbGarantia1.getSelectedIndex() == 1){
             ele = "f";
         }
         String Sexo = ele;
         String Direccion = jtxtDireccion1.getText();
         String Telefono = jtxtTelefono1.getText();
-        String Tipo = "";
-        if(jcTipo.getSelectedIndex() == 0){
-            Tipo = "Prendiario";
-        } else if(jcTipo.getSelectedIndex() == 1){
-            Tipo = "Hipotecario";
-        } else if(jcTipo.getSelectedIndex() == 2){
-            Tipo = "Solidario";
-        }
-
-        SimpleDateFormat formato = new SimpleDateFormat("YYYY/MM/dd");
-
+        String Direccionemp = jtxtDireccionemp1.getText();
+        
         try{
-            String fechana = "";
-            fechana = formato.format(jDateChooser2.getDate());
+            
 
-            if(Nombre.equals("") || Cedula.equals("") || Telefono.equals("")){
+            if(Nombre.equals("") || Cedula.equals("") || Telefono.equals("") || Sexo.equals("") || Direccion.equals("") || Telefono.equals("") || Direccionemp.equals("")){
 
                 JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
 
             }else{
                 try{
 
-                    cc.Insert("insert into Tipo_Garante(Id_Garante, Nombre_completo, Cedula, Fecha_naci, Sexo, Direccion, Telefono, Tipo)"
-                        + "values("+Codigo+", '"+Nombre+"', '"+Cedula+"', '"+fechana+"', '"+Sexo+"', '"+Direccion+"', '"+Telefono+"', '"+Tipo+"')");
+                    cc.Insert("insert into Garantia_solidaria(Id_GaranSolid, Nombre_solid, Cedula_solid, Sexo_solid, Direccion_solid, Telefono_solid, Direccion_Empleo)"
+                        + "values("+Codigo+", '"+Nombre+"', '"+Cedula+"', '"+Sexo+"', '"+Direccion+"', '"+Telefono+"', '"+Direccionemp+"')");
                     this.j= "Lleno";
                     this.gara = b;
 
@@ -267,30 +595,173 @@ public class Garante extends javax.swing.JFrame {
                     ele = "";
                     jtxtDireccion1.setText("");
                     jtxtTelefono1.setText("");
-                    jDateChooser2.setDate(fecha);
-                    fechana = "";
+                    jtxtDireccionemp1.setText("");
+                    
                     this.gara = 0;
-                    Buscar();
+                    Buscar1();
 
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } finally{
                     cc.close();
                 }
-                this.hide();
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
         }
-        Tipo = "";
-        ele = "";
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-        this.hide();
+        jdGarantiasoli.hide();
 
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        this.hide();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        if(jComboBox1.getSelectedIndex() == 0){
+            jdGarantiasoli.show();
+        } else if(jComboBox1.getSelectedIndex() == 1){
+            jdGarantiaHipo.show();
+        }else if(jComboBox1.getSelectedIndex() == 2){
+            jdGarantiapre.show();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jtxtcedula2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtcedula2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtcedula2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        
+        String Codigo = String.valueOf(b);
+        String Direccion = jtxtdireccion2.getText();
+        String Tipo = jtxttiposo.getText();
+        String Nombre = jTextnombre1.getText();
+        String Cedula = jtxtcedula2.getText();
+        String Titulo = jtxttitulo.getText();
+        
+        
+        try{
+            
+
+            if(Nombre.equals("") || Cedula.equals("") || Titulo.equals("") || Direccion.equals("") || Tipo.equals("")){
+
+                JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+
+            }else{
+                try{
+
+                    cc.Insert("insert into Garantia_Hipotecaria(ID_GaranHipo, Direccion_Vivienda, Tipo_Vivienda, Nombre_Dueno, Cedula_Dueno, Titulo_Propiedad)"
+                        + "values("+Codigo+", '"+Direccion+"', '"+Tipo+"', '"+Nombre+"', '"+Cedula+"', '"+Titulo+"')");
+                    
+
+                    jtxtdireccion2.setText("");
+                    jtxttiposo.setText("");
+                    jTextnombre1.setText("");
+                    jtxtcedula2.setText("");
+                    jtxttitulo.setText("");
+                    
+                    Buscar2();
+
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "No Se Agrego El Registro", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+                } finally{
+                    cc.close();
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        
+        jdGarantiaHipo.hide();
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jtxtMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtMatriculaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtMatriculaActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        
+        String Codigo = String.valueOf(c);
+        String Marca = jtxtMarca.getText();
+        String Modelo = jtxtModelo.getText();
+        String Matricula = jtxtMatricula.getText();
+        String Dueno = jtxtDue.getText();
+        String Direccion = jtxtDireccionemp3.getText();
+        String sql = "insert into Garantia_Prendaria values (?, ?, ?, ?, ?, ?, ?)";
+        Connection cn = null;
+        PreparedStatement insert;
+        java.util.Date date = new java.util.Date();
+        long t = Long.parseLong(jTextField1.getText());
+        java.sql.Date sqlDate = new java.sql.Date(t);
+        
+        try{
+            
+
+            if(Marca.equals("") || Modelo.equals("") || Matricula.equals("") || Dueno.equals("") || Direccion.equals("")){
+
+                JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+
+            }else{
+                try{
+
+                    cn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "ADM","Administrador");
+                        insert = cn.prepareStatement(sql);
+                        
+                        insert.setInt(1, Integer.parseInt(Codigo));
+                        insert.setString(2, Marca);
+                        insert.setString(3, Modelo);
+                        insert.setDate(4, sqlDate);
+                        insert.setString(5, Matricula);
+                        insert.setString(6, Dueno);
+                        insert.setString(7, Direccion);
+                        insert.executeUpdate();
+                    
+                        JOptionPane.showMessageDialog(null, "Se Agrego El Registro", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+
+                    jtxtMarca.setText("");
+                    jtxtModelo.setText("");
+                    jtxtMatricula.setText("");
+                    jtxtDue.setText("");
+                    jtxtDireccionemp3.setText("");
+                    jTextField1.setText("");
+                    
+                    Buscar3();
+
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "No Se Agrego El Registro" + e, "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+                } finally{
+                    cc.close();
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Faltan datos por introducir!", "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        
+        jdGarantiapre.hide();
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,18 +793,30 @@ public class Garante extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Garante().setVisible(true);
+                try {
+                    new Garante().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Garante.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jCbSexo1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jCbGarantia1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -341,14 +824,49 @@ public class Garante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel jblUsu2;
-    private javax.swing.JComboBox<String> jcTipo;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextnombre1;
+    private javax.swing.JLabel jblGarantia1;
+    private javax.swing.JLabel jblGarantia2;
+    private javax.swing.JLabel jblGarantia3;
+    private javax.swing.JDialog jdGarantiaHipo;
+    private javax.swing.JDialog jdGarantiapre;
+    private javax.swing.JDialog jdGarantiasoli;
     private javax.swing.JTextField jtxtCedula1;
     private javax.swing.JTextField jtxtDireccion1;
+    private javax.swing.JTextField jtxtDireccionemp1;
+    private javax.swing.JTextField jtxtDireccionemp3;
+    private javax.swing.JTextField jtxtDue;
+    private javax.swing.JTextField jtxtMarca;
+    private javax.swing.JTextField jtxtMatricula;
+    private javax.swing.JTextField jtxtModelo;
     private javax.swing.JTextField jtxtNombre1;
     private javax.swing.JTextField jtxtTelefono1;
+    private javax.swing.JTextField jtxtcedula2;
+    private javax.swing.JTextField jtxtdireccion2;
+    private javax.swing.JTextField jtxttiposo;
+    private javax.swing.JTextField jtxttitulo;
     // End of variables declaration//GEN-END:variables
 
     Conectar_Oracle cc = new Conectar_Oracle();

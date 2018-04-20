@@ -10,3 +10,7 @@ select * from Tipo_Garante;
 select * from prestamo_concedido;
 select * from amortizacion;
 select * from Solicitud_prestamo;
+
+select * from Garantia_Prendaria;
+select * from Garantia_Hipotecaria;
+select * from Garantia_solidaria;

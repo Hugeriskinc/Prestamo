@@ -37,6 +37,7 @@ public class Consultarc extends javax.swing.JFrame {
                 
             }
             
+            
         } catch(Exception e){
             
         } finally{
@@ -288,7 +289,7 @@ public class Consultarc extends javax.swing.JFrame {
                     Solicitud s = new Solicitud();
                     
                     s.jtxtCedula.setText(cedula);
-                    s.jtxtNombre.setText(nombrec);
+                    s.jtxtMonto.setText(nombrec);
                     s.jlbCodigoE.setText(nombree);
                     s.jtxtCorreo.setText(correo);
                     s.show();

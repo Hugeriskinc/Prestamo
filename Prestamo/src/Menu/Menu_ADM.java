@@ -17,7 +17,6 @@ import Prestamo.Agregar;
 import Prestamo.Consultarp;
 import Prestamo.Factorizacion;
 import Ingresos.Ingresos;
-import Ingresos.Ingresosver;
 import Solicitud.Solicitud;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -179,7 +178,6 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Menu Sistema Prestamo ADM");
@@ -369,15 +367,6 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         jMenuItem9.setText("Facturas");
         jMenu6.add(jMenuItem9);
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ingresos.png"))); // NOI18N
-        jMenuItem6.setText("Ingresos");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem6);
-
         jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
@@ -412,15 +401,6 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        
-        String j = jlUsu.getText();
-        Consultarc ac = new Consultarc();
-        ac.jLabel3.setText(j);
-        ac.show();
-        
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         
         Agregar ap = new Agregar();
@@ -428,26 +408,12 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        
-        Consultarp cp = new Consultarp();
-        cp.show();
-        
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         
         Agregare age = new Agregare();
         age.show();
         
     }//GEN-LAST:event_jMenuItem7ActionPerformed
-
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        
-        Consultare con = new Consultare();
-        con.show();
-        
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     //Boton para ventana Ingreso
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -459,9 +425,7 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
 
-        String j = jlUsu.getText();
         Solicitud s = new Solicitud();
-        s.jlbCodigoE.setText(j);
         s.show();
 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
@@ -473,10 +437,28 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
 
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        Ingresosver ver = new Ingresosver();
-        ver.show();
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+
+        Consultarp cp = new Consultarp();
+        cp.show();
+
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
+        String j = jlUsu.getText();
+        Consultarc ac = new Consultarc();
+        ac.jLabel3.setText(j);
+        ac.show();
+
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+
+        Consultare con = new Consultare();
+        con.show();
+
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -540,7 +522,6 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
