@@ -151,9 +151,10 @@ public class Agregar extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jlNombre = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
+        jlCliente1 = new javax.swing.JLabel();
 
         jdBuscar.setTitle("Buscar Garante");
         jdBuscar.setMinimumSize(new java.awt.Dimension(843, 664));
@@ -328,13 +329,16 @@ public class Agregar extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "Saldado", "Atrasado" }));
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 200, 30));
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 294, 190, 30));
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 100, 210, 30));
+        jPanel1.add(jlNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 100, 210, 30));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Encurso", "Saldado", "Inactivo" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 200, 30));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 430));
+
+        jlCliente1.setText("jLabel12");
+        jPanel1.add(jlCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -399,7 +403,7 @@ public class Agregar extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         String Codigo = String.valueOf(a);
-        String solicitud = this.Codi;
+        String solicitud = jlCliente1.getText();
         String tasa_interes = Tasa.getText();
         String Este = "";
         String categoria = "";
@@ -450,7 +454,7 @@ public class Agregar extends javax.swing.JFrame {
                         insert.setDate(6, sqlDate);
                         insert.executeUpdate();
                         
-                        jLabel9.setText("");
+                        jlNombre.setText("");
                         Tasa.setText("");
                         Buscar();
                         
@@ -587,8 +591,8 @@ public class Agregar extends javax.swing.JFrame {
                         }
                         
                         //this.gara = Integer.parseInt(at);
-                        this.Codi = at1;
-                        jLabel9.setText(n);
+                        jlCliente1.setText(at1);
+                        jlNombre.setText(n);
                         jdBuscar.hide();
 
                     }
@@ -664,7 +668,6 @@ public class Agregar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -673,6 +676,8 @@ public class Agregar extends javax.swing.JFrame {
     private javax.swing.JButton jbtSelec;
     private javax.swing.JDialog jdBuscar;
     private javax.swing.JLabel jlCliente;
+    public static javax.swing.JLabel jlCliente1;
+    public static javax.swing.JLabel jlNombre;
     private javax.swing.JRadioButton jrbCodigo;
     private javax.swing.JRadioButton jrbNombre;
     private javax.swing.JTable jtConsulta;

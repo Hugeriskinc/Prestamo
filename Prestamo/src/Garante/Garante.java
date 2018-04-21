@@ -240,9 +240,7 @@ public class Garante extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
-        jdGarantiasoli.setMaximumSize(new java.awt.Dimension(710, 500));
         jdGarantiasoli.setMinimumSize(new java.awt.Dimension(710, 500));
-        jdGarantiasoli.setPreferredSize(new java.awt.Dimension(710, 500));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -331,9 +329,7 @@ public class Garante extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jdGarantiaHipo.setMaximumSize(new java.awt.Dimension(710, 450));
         jdGarantiaHipo.setMinimumSize(new java.awt.Dimension(710, 450));
-        jdGarantiaHipo.setPreferredSize(new java.awt.Dimension(710, 450));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -413,7 +409,6 @@ public class Garante extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jdGarantiapre.setMaximumSize(new java.awt.Dimension(710, 500));
         jdGarantiapre.setMinimumSize(new java.awt.Dimension(710, 500));
         jdGarantiapre.setResizable(false);
 
@@ -502,7 +497,7 @@ public class Garante extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

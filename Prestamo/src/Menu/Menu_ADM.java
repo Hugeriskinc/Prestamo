@@ -15,16 +15,22 @@ import Login.Login;
 import static Login.Login.fecha;
 import Prestamo.Agregar;
 import Prestamo.Consultarp;
-import Prestamo.Factorizacion;
+import Factura.Factorizacion;
+import Factura.FacturaVer;
+import Garante.Garante;
 import Ingresos.Ingresos;
 import Solicitud.Solicitud;
+import Solicitud.SolicitudVer;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -164,10 +170,10 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -272,6 +278,14 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         });
         jMenu2.add(jMenuItem3);
 
+        jMenuItem5.setText("Garante");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
         jMenu7.add(jMenu2);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Empleado.png"))); // NOI18N
@@ -291,15 +305,6 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
 
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Procesos.png"))); // NOI18N
         jMenu8.setText("Procesos");
-
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Ingresos.png"))); // NOI18N
-        jMenuItem5.setText("Ingresos");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem5);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Solicitud.png"))); // NOI18N
         jMenu4.setText("Solicitud");
@@ -361,10 +366,20 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
 
         jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Solicitud.png"))); // NOI18N
         jMenuItem11.setText("Solicitud");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem11);
 
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Factura.png"))); // NOI18N
         jMenuItem9.setText("Facturas");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem9);
 
         jMenuBar1.add(jMenu6);
@@ -415,14 +430,6 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    //Boton para ventana Ingreso
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        
-        Ingresos in = new Ingresos();
-        in.show();
-        
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
 
         Solicitud s = new Solicitud();
@@ -459,6 +466,31 @@ public class Menu_ADM extends javax.swing.JFrame implements Runnable{
         con.show();
 
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        
+        SolicitudVer s = new SolicitudVer();
+        s.show();
+        
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        
+        FacturaVer f = new FacturaVer();
+        f.show();
+        
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        
+        try {
+            Garante g = new Garante();
+            g.show();
+        } catch (ParseException ex) {
+            Logger.getLogger(Menu_ADM.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

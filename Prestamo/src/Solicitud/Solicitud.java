@@ -29,7 +29,8 @@ public class Solicitud extends javax.swing.JFrame {
      * Creates new form Solicitud
      */
     
-    int a=0, b=0, fila1, gara;
+    int a=0, fila1, gara;
+    static public int Cliente=0;
     String j="", Fechana = "";
     String codigogrso;
     String codigogrhi;
@@ -224,17 +225,16 @@ public class Solicitud extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jcbGarante = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
+        jlCliente = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jcPrestamo = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jlCliente1 = new javax.swing.JLabel();
 
         jdBuscar.setTitle("Buscar Garante");
-        jdBuscar.setMaximumSize(new java.awt.Dimension(850, 640));
         jdBuscar.setMinimumSize(new java.awt.Dimension(850, 640));
-        jdBuscar.setPreferredSize(new java.awt.Dimension(850, 640));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -323,12 +323,10 @@ public class Solicitud extends javax.swing.JFrame {
         );
         jdBuscarLayout.setVerticalGroup(
             jdBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jdGarantiaSoli.setMaximumSize(new java.awt.Dimension(870, 710));
         jdGarantiaSoli.setMinimumSize(new java.awt.Dimension(870, 710));
-        jdGarantiaSoli.setPreferredSize(new java.awt.Dimension(870, 710));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -420,9 +418,7 @@ public class Solicitud extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jdGarantiaPren.setMaximumSize(new java.awt.Dimension(870, 710));
         jdGarantiaPren.setMinimumSize(new java.awt.Dimension(870, 710));
-        jdGarantiaPren.setPreferredSize(new java.awt.Dimension(870, 710));
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -514,9 +510,7 @@ public class Solicitud extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jdGarantiaHipo.setMaximumSize(new java.awt.Dimension(870, 710));
         jdGarantiaHipo.setMinimumSize(new java.awt.Dimension(870, 710));
-        jdGarantiaHipo.setPreferredSize(new java.awt.Dimension(870, 710));
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -671,7 +665,7 @@ public class Solicitud extends javax.swing.JFrame {
 
         jcbGarante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(jcbGarante, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 140, 30));
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 150, 30));
+        jPanel1.add(jlCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, 150, 30));
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
@@ -700,6 +694,9 @@ public class Solicitud extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 510));
 
+        jlCliente1.setText("jLabel10");
+        jPanel1.add(jlCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 70, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -727,13 +724,13 @@ public class Solicitud extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         String Codigo = String.valueOf(a);
-        String codigocl = String.valueOf(this.b);
+        String codigocl = String.valueOf(jlCliente1.getText());
         String codigogaso = this.codigogrso;
         String codigogapre = this.codigogrpre;
         String codigogahi = this.codigogrhi;
         String monto = jtxtMonto.getText();
         String plazo = jtxtPlazo.getText();
-        String sql = "insert into solicitud values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into Solicitud_prestamo values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection cn = null;
         PreparedStatement insert;
         java.util.Date date = new java.util.Date();
@@ -749,6 +746,7 @@ public class Solicitud extends javax.swing.JFrame {
         }else if(jcPrestamo.getSelectedIndex() == 2){
             Tipopre = "Hipotecaria";
         }
+        
         
         try{
             
@@ -768,9 +766,9 @@ public class Solicitud extends javax.swing.JFrame {
                         
                         insert.setInt(1, Integer.parseInt(Codigo));
                         insert.setInt(2, Integer.parseInt(codigocl));
-                        insert.setInt(3, Integer.parseInt(codigogaso));
-                        insert.setInt(4, Integer.parseInt(codigogapre));
-                        insert.setInt(5, Integer.parseInt(codigogahi));
+                        insert.setString(3, codigogaso);
+                        insert.setString(4, codigogapre);
+                        insert.setString(5, codigogahi);
                         insert.setInt(6, Integer.parseInt(monto));
                         insert.setString(7, plazo);
                         insert.setDate(8, sqlDate);
@@ -784,19 +782,19 @@ public class Solicitud extends javax.swing.JFrame {
                     codigogapre = "";
                     codigogahi = "";
                     Tipopre = "";
-                    jLabel10.setText("");
+                    jlCliente.setText("");
                     jtxtMonto.setText("");
                     jtxtPlazo.setText("");
                     Buscar();
                     
                     }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, "No Se Agrego El Registro" + e, "Sistema De Prestamo" + e, JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No Se Agrego El Registro " + e, "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
                     } finally{
                         cc.close();
                     } 
-      
+     
                 } catch(Exception e){
-                
+                    JOptionPane.showMessageDialog(null, "Error" + e, "Sistema De Prestamo", JOptionPane.INFORMATION_MESSAGE);
                 }
                     
         }
@@ -805,7 +803,7 @@ public class Solicitud extends javax.swing.JFrame {
         }
         
         
-        
+               
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -921,9 +919,9 @@ public class Solicitud extends javax.swing.JFrame {
                         this.j= "Lleno";
                         at = jtConsulta.getValueAt(fila1, 1).toString();
                         at1 = jtConsulta.getValueAt(fila1, 0).toString();
-                        this.b = Integer.parseInt(at1);
+                        jlCliente1.setText(at1);
                         
-                        jLabel10.setText(at);
+                        jlCliente.setText(at);
                         jdBuscar.hide();
 
                     }
@@ -1058,8 +1056,8 @@ public class Solicitud extends javax.swing.JFrame {
 
                     codigo = jtgarantia1.getValueAt(j, 0).toString();
                     this.codigogrso = codigo;
-                    this.codigogrhi = null;
-                    this.codigogrpre = null;
+                    this.codigogrhi = "";
+                    this.codigogrpre = "";
                     jdGarantiaSoli.hide();
 
                 }
@@ -1178,8 +1176,8 @@ public class Solicitud extends javax.swing.JFrame {
 
                     codigo = jtgarantia2.getValueAt(j, 0).toString();
                     this.codigogrhi = codigo;
-                    this.codigogrso = null;
-                    this.codigogrpre = null;
+                    this.codigogrso = "";
+                    this.codigogrpre = "";
                     jdGarantiaPren.hide();
 
                 }
@@ -1299,8 +1297,8 @@ public class Solicitud extends javax.swing.JFrame {
 
                     codigo = jtgarantia3.getValueAt(j, 0).toString();
                     this.codigogrpre = codigo;
-                    this.codigogrso = null;
-                    this.codigogrhi = null;
+                    this.codigogrso = "";
+                    this.codigogrhi = "";
                     jdGarantiaHipo.hide();
 
                 }
@@ -1360,7 +1358,6 @@ public class Solicitud extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1405,6 +1402,8 @@ public class Solicitud extends javax.swing.JFrame {
     private javax.swing.JDialog jdGarantiaHipo;
     private javax.swing.JDialog jdGarantiaPren;
     private javax.swing.JDialog jdGarantiaSoli;
+    public static javax.swing.JLabel jlCliente;
+    private javax.swing.JLabel jlCliente1;
     private javax.swing.JLabel jlCodigo;
     private javax.swing.JRadioButton jrbCodigo;
     private javax.swing.JRadioButton jrbCodigo1;

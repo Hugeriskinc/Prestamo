@@ -128,7 +128,7 @@ public class Agregarc extends javax.swing.JFrame {
         jtxtCelular = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro Clientes");
         setIconImage(getIconImage());
 

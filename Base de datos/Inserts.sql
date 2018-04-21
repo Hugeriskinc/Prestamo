@@ -25,7 +25,7 @@ values (1, 1);
 insert into Emple_Solici(Id_empleado, Id_Solicitud)
 values(1, 1);
 
-insert into solicitud(id_solicitud, Nombre_cliente, cedula, Monto_prestamo, Correo_elec, Tipo_garante, Fecha_re, id_empleado, Estatus)
-values(4, 'Oscar', 'Ortiz', 12000, 'oscar_ortiz30@hotmail.es', 'Hipotecari', '13/11/2013', 1, 'Aprobado');
+insert into solicitud_prestamo(id_solicitud, ID_Cliente, ID_GaranSolid, ID_GaranPren, ID_GaranHipo, Monto, Plazo, Fecha_solicitud, Tipo_Prestamo)
+values(2, 1, 1, null, null, 50000, 12, '20/04/2018', 'Personal');
 
 delete from empleado where Id_empleado = 4;

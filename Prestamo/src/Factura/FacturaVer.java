@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Cliente;
+package Factura;
 
 import Base_datos.Conectar_Oracle;
-import Solicitud.Solicitud;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,23 +14,22 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Oscar Ortiz
  */
-public class Consultarc extends javax.swing.JFrame {
+public class FacturaVer extends javax.swing.JFrame {
 
     /**
-     * Creates new form Eliminar
+     * Creates new form FacturaVer
      */
-    public Consultarc() {
+    public FacturaVer() {
         initComponents();
-        
         
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Sexo", "Ciudad","Sector", "Calle", "Numero de casa", "Telefono", "Celular", "Correo Electronico"});
+        model.setColumnIdentifiers(new Object[]{"Codigo del Factura","Codigo del Amortizacion", "Fecha"});
         try{
-            ResultSet rs = bd.Vertodo("select * from Clientes");
+            ResultSet rs = bd.Vertodo("select * from Facturacion");
             while(rs.next()){
                 
-                model.addRow(new Object[]{rs.getInt("Id_cliente"), rs.getString("Nombre_cli"), rs.getString("Apellido_cli"), rs.getString("Cedula_cli"), rs.getString("Sexo_cli"), rs.getString("Ciudad_cli"), rs.getString("Sector_cli"), rs.getString("Calle_cli"), rs.getString("NCasa_cli"), rs.getString("Telefono_cli"), rs.getString("Celular_cli"), rs.getString("Correo_cli")});
+                model.addRow(new Object[]{rs.getInt("ID_Factura"), rs.getString("ID_Amortizacion"), rs.getString("Fecha_Factura")});
                 
             }
             
@@ -65,18 +61,15 @@ public class Consultarc extends javax.swing.JFrame {
         jrbNombre = new javax.swing.JRadioButton();
         jrbCodigo = new javax.swing.JRadioButton();
         jbtMostrar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consulta Clientes");
-        setIconImage(getIconImage());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel1.setText("Consultar Clientes");
+        jLabel1.setText("Consultar Factura");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 20, -1, -1));
 
         jtTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -116,13 +109,13 @@ public class Consultarc extends javax.swing.JFrame {
         jPanel1.add(jbtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 140, 50));
 
         jrbNombre.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jrbNombre.setText("Nombre");
-        jPanel1.add(jrbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, -1, -1));
+        jrbNombre.setText("Codigo Amortización");
+        jPanel1.add(jrbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, -1, -1));
 
         jrbCodigo.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jrbCodigo.setSelected(true);
-        jrbCodigo.setText("Codigo");
-        jPanel1.add(jrbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, -1));
+        jrbCodigo.setText("Codigo Factura");
+        jPanel1.add(jrbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, -1, -1));
 
         jbtMostrar.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jbtMostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mostrar.png"))); // NOI18N
@@ -134,18 +127,8 @@ public class Consultarc extends javax.swing.JFrame {
         });
         jPanel1.add(jbtMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 200, 50));
 
-        jButton3.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Confirmar.png"))); // NOI18N
-        jButton3.setText("Seleccionar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 100, 180, 50));
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 680));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 680));
 
         jLabel3.setText("jLabel3");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, -1, -1));
@@ -154,7 +137,7 @@ public class Consultarc extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 963, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,21 +149,10 @@ public class Consultarc extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().
-                getImage(ClassLoader.getSystemResource("Imagenes/icono.png"));
-
-
-        return retValue;
-    }
-    
-    //Boton volver al menus
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
+
         this.hide();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jbtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBuscarActionPerformed
@@ -190,29 +162,29 @@ public class Consultarc extends javax.swing.JFrame {
         if(jrbNombre.isSelected() == false && jrbCodigo.isSelected() == false){
             JOptionPane.showMessageDialog(null, "No a elegino ningun tipo a buscar", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
         } else {
-        if(jrbNombre.isSelected() == true && jrbCodigo.isSelected() == true){
-            JOptionPane.showMessageDialog(null, "Solo puede sellecionar una sola opcion", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
-        } else if(jrbNombre.isSelected() == true){if(nombre.equals("")){
+            if(jrbNombre.isSelected() == true && jrbCodigo.isSelected() == true){
+                JOptionPane.showMessageDialog(null, "Solo puede sellecionar una sola opcion", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
+            } else if(jrbNombre.isSelected() == true){if(nombre.equals("")){
                 JOptionPane.showMessageDialog(null, "No a escrito el nombre a buscar", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
             } else{
                 char k = nombre.charAt(0);
                 if(Character.isDigit(k)){
                     JOptionPane.showMessageDialog(null, "Solo Puede introducir Letras", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
                 } else{
-               
+
                     DefaultTableModel model = new DefaultTableModel();
                     jtTabla.setModel(model);
-                    model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Sexo", "Ciudad","Sector", "Calle", "Numero de casa", "Telefono", "Celular", "Correo Electronico"});
-                        try{
-                         ResultSet rs = bd.Vertodo("select * from Clientes where Nombre_cli like'"+nombre+"%'");
+                    model.setColumnIdentifiers(new Object[]{"Codigo del Factura","Codigo del Amortizacion", "Fecha"});
+        try{
+                        ResultSet rs = bd.Vertodo("select * from Facturacion where ID_Amortizacion = "+nombre+"");
                         while(rs.next()){
 
-                            model.addRow(new Object[]{rs.getInt("Id_cliente"), rs.getString("Nombre_cli"), rs.getString("Apellido_cli"), rs.getString("Cedula_cli"), rs.getString("Sexo_cli"), rs.getString("Ciudad_cli"), rs.getString("Sector_cli"), rs.getString("Calle_cli"), rs.getString("NCasa_cli"), rs.getString("Telefono_cli"), rs.getString("Celular_cli"), rs.getString("Correo_cli")});
+                            model.addRow(new Object[]{rs.getInt("ID_Factura"), rs.getString("ID_Amortizacion"), rs.getString("Fecha_Factura")});
                 
                         }
 
                     } catch(Exception e){
-                        
+
                     } finally{
                         bd.close();
                     }
@@ -223,22 +195,22 @@ public class Consultarc extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No a escrito el codigo a buscar", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 try{
-                int ho = Integer.parseInt(nombre);
-                if(ho > 0){
-                ResultSet rs = bd.Vertodo("select * from Clientes where id_Cliente = "+nombre+"");
-                DefaultTableModel model = new DefaultTableModel();
-                jtTabla.setModel(model);
-                model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Sexo", "Ciudad","Sector", "Calle", "Numero de casa", "Telefono", "Celular", "Correo Electronico"});
+                    int ho = Integer.parseInt(nombre);
+                    if(ho > 0){
+                        ResultSet rs = bd.Vertodo("select * from Facturacion where ID_Factura = "+nombre+"");
+                        DefaultTableModel model = new DefaultTableModel();
+                        jtTabla.setModel(model);
+                        model.setColumnIdentifiers(new Object[]{"Codigo del Factura","Codigo del Amortizacion", "Fecha"});
         
-                    while(rs.next()){
+                        while(rs.next()){
 
-                        model.addRow(new Object[]{rs.getInt("Id_cliente"), rs.getString("Nombre_cli"), rs.getString("Apellido_cli"), rs.getString("Cedula_cli"), rs.getString("Sexo_cli"), rs.getString("Ciudad_cli"), rs.getString("Sector_cli"), rs.getString("Calle_cli"), rs.getString("NCasa_cli"), rs.getString("Telefono_cli"), rs.getString("Celular_cli"), rs.getString("Correo_cli")});
+                            model.addRow(new Object[]{rs.getInt("ID_Factura"), rs.getString("ID_Amortizacion"), rs.getString("Fecha_Factura")});
                 
+                        }
                     }
-                }
 
                 } catch(Exception e){
-                    
+
                     JOptionPane.showMessageDialog(null, "Solo puede introducir numeros", "Sistema de prestamo", JOptionPane.INFORMATION_MESSAGE);
 
                 } finally{
@@ -251,15 +223,14 @@ public class Consultarc extends javax.swing.JFrame {
 
     private void jbtMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtMostrarActionPerformed
 
-        
         DefaultTableModel model = new DefaultTableModel();
         jtTabla.setModel(model);
-        model.setColumnIdentifiers(new Object[]{"Codigo del Cliente","Nombre Del Cliente","Apellido del cliente", "Cedula", "Sexo", "Ciudad","Sector", "Calle", "Numero de casa", "Telefono", "Celular", "Correo Electronico"});
+        model.setColumnIdentifiers(new Object[]{"Codigo del Factura","Codigo del Amortizacion", "Fecha"});
         try{
-            ResultSet rs = bd.Vertodo("select * from Clientes");
+            ResultSet rs = bd.Vertodo("select * from Facturacion");
             while(rs.next()){
 
-                model.addRow(new Object[]{rs.getInt("Id_cliente"), rs.getString("Nombre_cli"), rs.getString("Apellido_cli"), rs.getString("Cedula_cli"), rs.getString("Sexo_cli"), rs.getString("Ciudad_cli"), rs.getString("Sector_cli"), rs.getString("Calle_cli"), rs.getString("NCasa_cli"), rs.getString("Telefono_cli"), rs.getString("Celular_cli"), rs.getString("Correo_cli")});
+                model.addRow(new Object[]{rs.getInt("ID_Factura"), rs.getString("ID_Amortizacion"), rs.getString("Fecha_Factura")});
                 
             }
 
@@ -269,37 +240,6 @@ public class Consultarc extends javax.swing.JFrame {
             bd.close();
         }
     }//GEN-LAST:event_jbtMostrarActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        int j = jtTabla.getSelectedRow();
-        String codigo = "", nombrec = "";
-
-        try{
-            if(j==-1){
-                JOptionPane.showMessageDialog(null, "Debe de seleccionar un registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                if(j >=0 ){
-
-                    codigo = jtTabla.getValueAt(j, 0).toString();
-                    nombrec = jtTabla.getValueAt(j, 1).toString();
-                    
-                    
-                    Solicitud s = new Solicitud();
-                    
-                    s.jlCliente.setText(codigo);
-                    s.jlCliente.setText(nombrec);
-                    this.hide();
-                    s.show();
-                    
-                }
-            }
-
-        }catch (Exception ex) {
-
-        }
-
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,23 +258,20 @@ public class Consultarc extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Consultarc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FacturaVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Consultarc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FacturaVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Consultarc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FacturaVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Consultarc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FacturaVer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Consultarc().setVisible(true);
+                new FacturaVer().setVisible(true);
             }
         });
     }
@@ -343,7 +280,6 @@ public class Consultarc extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     public static javax.swing.JLabel jLabel3;

@@ -12,15 +12,21 @@ import Login.Login;
 import static Menu.Menu_ADM.fecha;
 import Prestamo.Agregar;
 import Prestamo.Consultarp;
-import Prestamo.Factorizacion;
+import Factura.Factorizacion;
+import Factura.FacturaVer;
+import Garante.Garante;
 import Solicitud.Solicitud;
+import Solicitud.SolicitudVer;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -150,6 +156,7 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -254,6 +261,14 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
         });
         jMenu2.add(jMenuItem3);
 
+        jMenuItem6.setText("Garante");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
+
         jMenu7.add(jMenu2);
 
         jMenuBar1.add(jMenu7);
@@ -294,10 +309,20 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
 
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Solicitud.png"))); // NOI18N
         jMenuItem8.setText("Solicitud");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem8);
 
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Factura.png"))); // NOI18N
         jMenuItem9.setText("Factura");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem9);
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Clientes.png"))); // NOI18N
@@ -386,6 +411,31 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
         
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        
+        SolicitudVer s = new SolicitudVer();
+        s.show();
+        
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        
+        FacturaVer f = new FacturaVer();
+        f.show();
+        
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        
+        try {
+            Garante g = new Garante();
+            g.show();
+        } catch (ParseException ex) {
+            Logger.getLogger(Menu_ADM.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -441,6 +491,7 @@ public class Menu_USU extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

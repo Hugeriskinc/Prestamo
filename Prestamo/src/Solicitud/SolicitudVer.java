@@ -6,6 +6,7 @@
 package Solicitud;
 
 import Base_datos.Conectar_Oracle;
+import Prestamo.Agregar;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -62,6 +63,7 @@ public class SolicitudVer extends javax.swing.JFrame {
         jrbNombre = new javax.swing.JRadioButton();
         jrbCodigo = new javax.swing.JRadioButton();
         jbtMostrar = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -110,12 +112,12 @@ public class SolicitudVer extends javax.swing.JFrame {
 
         jrbNombre.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jrbNombre.setText("Codigo Cliente");
-        jPanel1.add(jrbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 70, 180, -1));
+        jPanel1.add(jrbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, 180, -1));
 
         jrbCodigo.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jrbCodigo.setSelected(true);
         jrbCodigo.setText("Codigo Solicitud");
-        jPanel1.add(jrbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, -1, -1));
+        jPanel1.add(jrbCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 30, -1, -1));
 
         jbtMostrar.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jbtMostrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Mostrar.png"))); // NOI18N
@@ -126,6 +128,16 @@ public class SolicitudVer extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbtMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 210, 60));
+
+        jButton3.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Confirmar.png"))); // NOI18N
+        jButton3.setText("Seleccionar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 100, 180, 60));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/textura.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1120, 680));
@@ -243,6 +255,41 @@ public class SolicitudVer extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtMostrarActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        int j = jtTabla.getSelectedRow();
+        String codigo = "", nombrec = "", at;
+
+        try{
+            if(j==-1){
+                JOptionPane.showMessageDialog(null, "Debe de seleccionar un registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {
+                if(j >=0 ){
+
+                    codigo = jtTabla.getValueAt(j, 0).toString();
+                    at = jtTabla.getValueAt(j, 1).toString();
+                    
+                    ResultSet rs1 = bd.Vertodo("select * from Clientes where ID_cliente = "+at+"");
+                                    
+                        while(rs1.next()){
+                        nombrec = rs1.getString("Nombre_cli");
+                        }
+
+                    Agregar p = new Agregar();
+
+                    p.jlCliente1.setText(codigo);
+                    p.jlNombre.setText(nombrec);
+                    this.hide();
+                    p.show();
+
+                }
+            }
+
+        }catch (Exception ex) {
+
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,6 +327,7 @@ public class SolicitudVer extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

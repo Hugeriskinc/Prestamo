@@ -350,6 +350,7 @@ public class Amortizacion extends javax.swing.JFrame {
                     
                     cc.Insert("insert into Amortizacion(Id_amortizacion, id_prestamo, cuotas, capital, interes, monto)"
                     + "values ("+codigo+", "+codigop+", "+cuotas+", "+capita+", "+interes+", "+Monto+")");
+                    jdConsultar.hide();
                     this.hide();
                     
             }catch(Exception e){
